@@ -1,13 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useGetPopularMoviesQuery } from '@/presentation/store/api/tmdbApi';
 import { Container } from '@/presentation/components/layout';
 import { MovieGrid } from '@/presentation/components/features';
 import { MovieCard } from '@/presentation/components/features';
 import { LoadingSpinner, ErrorMessage, Button } from '@/presentation/components/common';
+import { useDispatch } from 'react-redux';
+import { tmdbApi } from '@/presentation/store/api/tmdbApi';
 
 export const Home = () => {
   const [page, setPage] = useState(1);
+  const dispatch = useDispatch();
   const { data, isLoading, error, refetch } = useGetPopularMoviesQuery({ page });
+
+  useEffect(() => {
+    // Reset cache when component mounts
+    return () => {
+      dispatch(tmdbApi.util.invalidateTags(['PopularMovies']));
+    };
+  }, [dispatch]);
 
   const handleLoadMore = () => {
     if (data && page < data.total_pages) {

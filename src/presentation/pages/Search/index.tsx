@@ -1,17 +1,19 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { FiSearch } from 'react-icons/fi';
-import { useSearchMoviesQuery } from '@/presentation/store/api/tmdbApi';
+import { useSearchMoviesQuery, tmdbApi } from '@/presentation/store/api/tmdbApi';
 import { useDebounce } from '@/presentation/hooks';
 import { Container } from '@/presentation/components/layout';
 import { SearchBar, MovieGrid, MovieCard } from '@/presentation/components/features';
 import { LoadingSpinner, ErrorMessage, EmptyState, Button } from '@/presentation/components/common';
+import { useDispatch } from 'react-redux';
 
 export const Search = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const queryParam = searchParams.get('q') || '';
   const [query, setQuery] = useState(queryParam);
   const [page, setPage] = useState(1);
+  const dispatch = useDispatch();
 
   const debouncedQuery = useDebounce(query, 500);
 
@@ -24,10 +26,12 @@ export const Search = () => {
     if (debouncedQuery) {
       setSearchParams({ q: debouncedQuery });
       setPage(1);
+      // Reset cache when search query changes
+      dispatch(tmdbApi.util.invalidateTags(['SearchResults']));
     } else {
       setSearchParams({});
     }
-  }, [debouncedQuery, setSearchParams]);
+  }, [debouncedQuery, setSearchParams, dispatch]);
 
   const handleSearch = (searchQuery: string) => {
     setQuery(searchQuery);
@@ -79,7 +83,7 @@ export const Search = () => {
                 <>
                   <MovieGrid>
                     {data.results.map((movie) => (
-                      <MovieCard key={movie.id} movie={movie} />
+                      <MovieCard key={movie.id} movie={movie} searchQuery={debouncedQuery} />
                     ))}
                   </MovieGrid>
 

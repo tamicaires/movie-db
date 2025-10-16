@@ -29,13 +29,25 @@ export const tmdbApi = createApi({
         url: '/movie/popular',
         params: { page },
       }),
-      providesTags: (result, _error, { page }) =>
+      serializeQueryArgs: ({ endpointName }) => {
+        return endpointName;
+      },
+      merge: (currentCache, newItems) => {
+        currentCache.results.push(...newItems.results);
+        currentCache.page = newItems.page;
+        currentCache.total_pages = newItems.total_pages;
+        currentCache.total_results = newItems.total_results;
+      },
+      forceRefetch({ currentArg, previousArg }) {
+        return currentArg?.page !== previousArg?.page;
+      },
+      providesTags: (result) =>
         result
           ? [
               ...result.results.map(({ id }) => ({ type: 'PopularMovies' as const, id })),
-              { type: 'PopularMovies', id: `PAGE-${page}` },
+              { type: 'PopularMovies', id: 'LIST' },
             ]
-          : [{ type: 'PopularMovies', id: `PAGE-${page}` }],
+          : [{ type: 'PopularMovies', id: 'LIST' }],
     }),
 
     searchMovies: builder.query<PaginatedMoviesResponse, SearchMoviesParams>({
@@ -43,13 +55,25 @@ export const tmdbApi = createApi({
         url: '/search/movie',
         params: { query, page },
       }),
-      providesTags: (result, _error, { query, page }) =>
+      serializeQueryArgs: ({ queryArgs }) => {
+        return queryArgs.query;
+      },
+      merge: (currentCache, newItems) => {
+        currentCache.results.push(...newItems.results);
+        currentCache.page = newItems.page;
+        currentCache.total_pages = newItems.total_pages;
+        currentCache.total_results = newItems.total_results;
+      },
+      forceRefetch({ currentArg, previousArg }) {
+        return currentArg?.page !== previousArg?.page;
+      },
+      providesTags: (result, _error, { query }) =>
         result
           ? [
               ...result.results.map(({ id }) => ({ type: 'SearchResults' as const, id })),
-              { type: 'SearchResults', id: `${query}-PAGE-${page}` },
+              { type: 'SearchResults', id: `SEARCH-${query}` },
             ]
-          : [{ type: 'SearchResults', id: `${query}-PAGE-${page}` }],
+          : [{ type: 'SearchResults', id: 'LIST' }],
     }),
 
     getMovieDetails: builder.query<MovieDetails, number>({
