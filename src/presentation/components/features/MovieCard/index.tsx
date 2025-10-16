@@ -1,17 +1,20 @@
 import { Link } from 'react-router-dom';
-import { MdLocalMovies, MdFavorite, MdFavoriteBorder } from 'react-icons/md';
+import { MdLocalMovies, MdFavorite, MdFavoriteBorder, MdDelete } from 'react-icons/md';
 import { AiFillStar } from 'react-icons/ai';
-import { Movie } from '@/shared/types';
+import type { Movie } from '@/shared/types';
 import { getPosterUrl } from '@/shared/utils/imageUrl';
 import { formatDate } from '@/shared/utils/formatters';
 import { ROUTES } from '@/shared/constants';
 import { useFavorites } from '@/presentation/hooks/useFavorites';
+import { HighlightText } from '@/presentation/components/common';
 
 interface MovieCardProps {
   movie: Movie;
+  searchQuery?: string;
+  showDeleteIcon?: boolean;
 }
 
-export const MovieCard = ({ movie }: MovieCardProps) => {
+export const MovieCard = ({ movie, searchQuery, showDeleteIcon = false }: MovieCardProps) => {
   const { isFavorite, toggleFavorite } = useFavorites();
   const posterUrl = getPosterUrl(movie.poster_path);
   const isMovieFavorite = isFavorite(movie.id);
@@ -44,7 +47,9 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
 
       <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-2 transition-transform group-hover:translate-y-0">
-        <h3 className="mb-1 text-lg font-semibold text-white line-clamp-2">{movie.title}</h3>
+        <h3 className="mb-1 text-lg font-semibold text-white line-clamp-2">
+          <HighlightText text={movie.title} highlight={searchQuery} />
+        </h3>
         <div className="flex items-center justify-between">
           <span className="text-sm text-gray-300">{formatDate(movie.release_date)}</span>
           <div className="flex items-center gap-1">
@@ -57,9 +62,17 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
       <button
         onClick={handleFavoriteClick}
         className="absolute right-2 top-2 flex h-10 w-10 items-center justify-center rounded-full bg-black/60 backdrop-blur-sm transition-colors hover:bg-black/80"
-        aria-label={isMovieFavorite ? 'Remove from favorites' : 'Add to favorites'}
+        aria-label={
+          showDeleteIcon
+            ? 'Remove from favorites'
+            : isMovieFavorite
+              ? 'Remove from favorites'
+              : 'Add to favorites'
+        }
       >
-        {isMovieFavorite ? (
+        {showDeleteIcon ? (
+          <MdDelete className="h-6 w-6 text-accent-red" />
+        ) : isMovieFavorite ? (
           <MdFavorite className="h-6 w-6 text-accent-red" />
         ) : (
           <MdFavoriteBorder className="h-6 w-6 text-white" />
