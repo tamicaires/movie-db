@@ -4,20 +4,45 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
+        background: {
+          DEFAULT: 'hsl(var(--background))',
+          dark: '#0D1117',
+        },
+        surface: {
+          DEFAULT: 'hsl(var(--surface))',
+          dark: '#161B22',
+          light: '#21262D',
+        },
         primary: {
-          50: '#f0f9ff',
-          100: '#e0f2fe',
-          200: '#bae6fd',
-          300: '#7dd3fc',
-          400: '#38bdf8',
-          500: '#0ea5e9',
-          600: '#0284c7',
-          700: '#0369a1',
-          800: '#075985',
-          900: '#0c4a6e',
+          DEFAULT: '#388BFF',
+          50: '#EBF5FF',
+          100: '#D6EBFF',
+          200: '#ADD6FF',
+          300: '#85C2FF',
+          400: '#5CADFF',
+          500: '#388BFF',
+          600: '#0066E0',
+          700: '#004DB8',
+          800: '#003580',
+          900: '#001C48',
+        },
+        accent: {
+          red: '#E54D60',
+        },
+        text: {
+          primary: '#F0F6FC',
+          secondary: '#8B949E',
+        },
+        rating: {
+          high: '#E3B341',
+          medium: '#A3BF3B',
+        },
+        border: {
+          DEFAULT: '#30363D',
         },
       },
       fontFamily: {
