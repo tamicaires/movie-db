@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
+import { createSlice, createSelector } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
 import type { Movie, FavoriteSortBy } from '@/shared/types';
 import { STORAGE_KEYS } from '@/shared/constants';
 import { loadFromStorage, saveToStorage } from '@/infrastructure/storage/localStorage';
@@ -10,7 +11,7 @@ interface FavoritesState {
 
 const initialState: FavoritesState = {
   items: loadFromStorage<Movie[]>(STORAGE_KEYS.FAVORITES) || [],
-  sortBy: 'title-asc',
+  sortBy: 'date-desc',
 };
 
 const favoritesSlice = createSlice({
@@ -76,6 +77,10 @@ export const selectSortedFavorites = createSelector(
         return sorted.sort((a, b) => a.vote_average - b.vote_average);
       case 'rating-desc':
         return sorted.sort((a, b) => b.vote_average - a.vote_average);
+      case 'date-asc':
+        return sorted.sort((a, b) => a.release_date.localeCompare(b.release_date));
+      case 'date-desc':
+        return sorted.sort((a, b) => b.release_date.localeCompare(a.release_date));
       default:
         return sorted;
     }

@@ -91,7 +91,13 @@ export interface PaginatedMoviesResponse {
 /**
  * Tipo para ordenação de favoritos
  */
-export type FavoriteSortBy = 'title-asc' | 'title-desc' | 'rating-asc' | 'rating-desc';
+export type FavoriteSortBy =
+  | 'title-asc'
+  | 'title-desc'
+  | 'rating-asc'
+  | 'rating-desc'
+  | 'date-asc'
+  | 'date-desc';
 
 /**
  * Parâmetros para busca de filmes

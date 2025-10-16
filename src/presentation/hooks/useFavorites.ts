@@ -4,7 +4,9 @@ import {
   toggleFavorite as toggleFavoriteAction,
   selectFavorites,
   selectSortedFavorites,
+  selectSortBy,
   setSortBy,
+  clearFavorites as clearFavoritesAction,
 } from '../store/slices/favoritesSlice';
 import type { Movie, FavoriteSortBy } from '@/shared/types';
 
@@ -12,6 +14,7 @@ export const useFavorites = () => {
   const dispatch = useAppDispatch();
   const favorites = useAppSelector(selectSortedFavorites);
   const favoritesRaw = useAppSelector(selectFavorites);
+  const sortBy = useAppSelector(selectSortBy);
 
   const favoriteIds = useMemo(() => new Set(favoritesRaw.map((movie) => movie.id)), [favoritesRaw]);
 
@@ -30,17 +33,23 @@ export const useFavorites = () => {
   );
 
   const changeSortBy = useCallback(
-    (sortBy: FavoriteSortBy) => {
-      dispatch(setSortBy(sortBy));
+    (newSortBy: FavoriteSortBy) => {
+      dispatch(setSortBy(newSortBy));
     },
     [dispatch]
   );
 
+  const clearFavorites = useCallback(() => {
+    dispatch(clearFavoritesAction());
+  }, [dispatch]);
+
   return {
     favorites,
+    sortBy,
     isFavorite,
     toggleFavorite,
-    changeSortBy,
+    setSortBy: changeSortBy,
+    clearFavorites,
     favoritesCount: favorites.length,
   };
 };
