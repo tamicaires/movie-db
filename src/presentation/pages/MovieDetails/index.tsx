@@ -111,7 +111,12 @@ export const MovieDetails = () => {
             <div className="mb-8">
               <Button
                 variant={isMovieFavorite ? 'secondary' : 'primary'}
-                onClick={() => toggleFavorite(movie)}
+                onClick={() =>
+                  toggleFavorite({
+                    ...movie,
+                    genre_ids: movie.genres.map((g) => g.id),
+                  })
+                }
               >
                 {isMovieFavorite ? 'Remover dos Favoritos' : 'Adicionar aos Favoritos'}
               </Button>
