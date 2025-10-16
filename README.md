@@ -1,73 +1,170 @@
-# React + TypeScript + Vite
+# MovieDB - React Movie Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicação web moderna para explorar filmes populares, buscar títulos e gerenciar favoritos utilizando a API do TMDB (The Movie Database).
 
-Currently, two official plugins are available:
+## 🚀 Tecnologias
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React 18** - Biblioteca UI
+- **TypeScript** - Tipagem estática
+- **Redux Toolkit** - Gerenciamento de estado
+- **RTK Query** - Data fetching e caching
+- **React Router v6** - Roteamento
+- **Tailwind CSS** - Estilização
+- **Vite** - Build tool
+- **Vitest** - Testes unitários
+- **React Icons** - Biblioteca de ícones
 
-## React Compiler
+## 📋 Funcionalidades
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- ✅ Listagem de filmes populares com paginação
+- ✅ Busca de filmes com debounce
+- ✅ Detalhes completos do filme
+- ✅ Sistema de favoritos com persistência (localStorage)
+- ✅ Ordenação de favoritos (título, data, avaliação)
+- ✅ Tema dark/light mode com transições suaves
+- ✅ Design responsivo
+- ✅ Clean Architecture
+- ✅ Type-safe com TypeScript strict mode
 
-## Expanding the ESLint configuration
+## 🏗️ Arquitetura
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Projeto estruturado seguindo princípios de **Clean Architecture** e **SOLID**:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+├── infrastructure/     # Camada de infraestrutura
+│   └── storage/       # localStorage wrapper
+├── presentation/      # Camada de apresentação
+│   ├── components/   # Componentes React
+│   │   ├── common/   # Componentes reutilizáveis
+│   │   ├── features/ # Componentes de features
+│   │   └── layout/   # Componentes de layout
+│   ├── contexts/     # React Contexts
+│   ├── hooks/        # Custom hooks
+│   ├── pages/        # Páginas da aplicação
+│   ├── routes/       # Configuração de rotas
+│   └── store/        # Redux store e slices
+└── shared/           # Camada compartilhada
+    ├── constants/    # Constantes da aplicação
+    ├── types/        # TypeScript types
+    └── utils/        # Funções utilitárias
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🔧 Instalação
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. Clone o repositório:
+```bash
+git clone <repository-url>
+cd movie_mb
 ```
+
+2. Instale as dependências:
+```bash
+npm install
+```
+
+3. Configure as variáveis de ambiente:
+```bash
+cp .env.example .env
+```
+
+4. Adicione sua chave da API do TMDB no arquivo `.env`:
+```env
+VITE_TMDB_API_KEY=sua_chave_aqui
+```
+
+> 📝 Obtenha sua chave em: https://www.themoviedb.org/settings/api
+
+## 🚀 Rodando o projeto
+
+### Desenvolvimento
+```bash
+npm run dev
+```
+
+### Build de produção
+```bash
+npm run build
+```
+
+### Preview da build
+```bash
+npm run preview
+```
+
+### Testes
+```bash
+npm run test
+```
+
+### Validação completa (type-check + lint + format)
+```bash
+npm run pre-commit
+```
+
+## 📝 Scripts disponíveis
+
+- `npm run dev` - Inicia servidor de desenvolvimento
+- `npm run build` - Cria build de produção
+- `npm run preview` - Preview da build de produção
+- `npm run lint` - Executa ESLint
+- `npm run format` - Formata código com Prettier
+- `npm run format:check` - Verifica formatação
+- `npm run type-check` - Verifica tipos TypeScript
+- `npm run test` - Executa testes
+- `npm run pre-commit` - Validação completa antes de commit
+
+## 🎨 Decisões de Design
+
+### State Management
+- **Redux Toolkit** para estado global (favoritos)
+- **RTK Query** para cache e sincronização de dados da API
+- **React Context** para tema (dark/light mode)
+- **localStorage** para persistência de favoritos e tema
+
+### Routing
+- **Nested routes** com `MainLayout` e `Outlet`
+- **useRoutes** hook para configuração declarativa
+- Redirecionamento automático para 404
+
+### Componentes
+- Componentes funcionais com hooks
+- Separação clara entre common/features/layout
+- Props tipadas com TypeScript
+- Uso de barrel exports (index.ts)
+
+### Performance
+- Debounce na busca (500ms)
+- Memoização com `createSelector` (Reselect)
+- Lazy loading de imagens
+- Paginação infinita
+
+## 📦 Estrutura de Commits
+
+Commits seguem Conventional Commits:
+- `feat:` - Nova funcionalidade
+- `fix:` - Correção de bug
+- `refactor:` - Refatoração de código
+- `chore:` - Mudanças em build, configs, etc
+- `docs:` - Documentação
+
+## 🔐 Boas Práticas
+
+- ✅ TypeScript strict mode
+- ✅ ESLint + Prettier configurados
+- ✅ Pre-commit hooks com validação
+- ✅ Clean Architecture
+- ✅ SOLID principles
+- ✅ Código autodocumentado (minimal comments)
+- ✅ Type-safe API calls
+- ✅ Error handling
+- ✅ Loading states
+- ✅ Empty states
+
+## 📄 Licença
+
+MIT
+
+---
+
+Desenvolvido com ❤️ usando React + TypeScript
