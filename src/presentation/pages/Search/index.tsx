@@ -7,12 +7,21 @@ import { Container } from '@/presentation/components/layout';
 import { MovieGrid, MovieCard } from '@/presentation/components/features';
 import { LoadingSpinner, ErrorMessage, EmptyState, Button } from '@/presentation/components/common';
 import { useDispatch } from 'react-redux';
+import { useSEO } from '@/presentation/hooks';
 
 export const Search = () => {
   const [searchParams] = useSearchParams();
   const query = searchParams.get('q') || '';
   const [page, setPage] = useState(1);
   const dispatch = useDispatch();
+
+  useSEO({
+    title: query ? `Busca: ${query}` : 'Buscar Filmes',
+    description: query
+      ? `Resultados da busca por "${query}"`
+      : 'Busque por seus filmes favoritos',
+    keywords: `busca, pesquisa, ${query || 'filmes'}`,
+  });
 
   const { data, isLoading, error, refetch } = useSearchMoviesQuery(
     { query, page },

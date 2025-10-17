@@ -11,7 +11,7 @@ import { MovieCard } from '@/presentation/components/features';
 import { LoadingSpinner, ErrorMessage, Button } from '@/presentation/components/common';
 import { useDispatch } from 'react-redux';
 import { tmdbApi } from '@/presentation/store/api/tmdbApi';
-import { useViewMode } from '@/presentation/hooks';
+import { useViewMode, useSEO } from '@/presentation/hooks';
 import { BiLoaderAlt } from 'react-icons/bi';
 import { RiMovie2Fill, RiFireFill, RiStarSFill, RiCalendarEventFill } from 'react-icons/ri';
 
@@ -19,6 +19,12 @@ export const Home = () => {
   const [page, setPage] = useState(1);
   const dispatch = useDispatch();
   const { viewMode } = useViewMode();
+
+  useSEO({
+    title: 'Filmes Populares',
+    description: 'Explore os filmes mais populares do momento, descubra novos lançamentos e aclamados pela crítica.',
+    keywords: 'filmes populares, movies, cinema, TMDB, em alta, lançamentos',
+  });
 
   const { data: popularData, isLoading: popularLoading, error: popularError, refetch: refetchPopular } = useGetPopularMoviesQuery({ page });
 

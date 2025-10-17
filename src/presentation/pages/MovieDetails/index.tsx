@@ -7,7 +7,7 @@ import {
   MdFavoriteBorder,
 } from 'react-icons/md';
 import { useGetMovieDetailsQuery } from '@/presentation/store/api/tmdbApi';
-import { useFavorites } from '@/presentation/hooks';
+import { useFavorites, useSEO } from '@/presentation/hooks';
 import { Container } from '@/presentation/components/layout';
 import { LoadingSpinner, ErrorMessage, Button } from '@/presentation/components/common';
 import { getBackdropUrl, getPosterUrl } from '@/shared/utils/imageUrl';
@@ -19,6 +19,15 @@ export const MovieDetails = () => {
   const navigate = useNavigate();
   const { data: movie, isLoading, error, refetch } = useGetMovieDetailsQuery(Number(id));
   const { isFavorite, toggleFavorite } = useFavorites();
+
+  useSEO({
+    title: movie?.title,
+    description: movie?.overview || 'Veja detalhes, avaliações e informações sobre este filme.',
+    keywords: movie?.genres?.map((g) => g.name).join(', ') || 'filmes, movies, cinema',
+    ogTitle: movie?.title,
+    ogDescription: movie?.overview,
+    ogImage: movie?.poster_path ? getPosterUrl(movie.poster_path, 'LARGE') : undefined,
+  });
 
   if (isLoading) {
     return (

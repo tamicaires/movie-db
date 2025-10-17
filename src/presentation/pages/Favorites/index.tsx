@@ -1,5 +1,5 @@
 import { MdFavoriteBorder } from 'react-icons/md';
-import { useFavorites } from '@/presentation/hooks';
+import { useFavorites, useSEO } from '@/presentation/hooks';
 import { Container } from '@/presentation/components/layout';
 import { MovieGrid } from '@/presentation/components/features';
 import { MovieCard } from '@/presentation/components/features';
@@ -10,6 +10,12 @@ import { ROUTES } from '@/shared/constants';
 export const Favorites = () => {
   const { favorites, sortBy, setSortBy, clearFavorites } = useFavorites();
   const navigate = useNavigate();
+
+  useSEO({
+    title: 'Meus Favoritos',
+    description: `Sua lista de filmes favoritos${favorites.length > 0 ? ` - ${favorites.length} ${favorites.length === 1 ? 'filme' : 'filmes'}` : ''}`,
+    keywords: 'favoritos, meus filmes, lista de filmes, watchlist',
+  });
 
   return (
     <Container className="py-8">
