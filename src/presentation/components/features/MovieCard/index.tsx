@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react';
 import type { ReactNode, MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { MdLocalMovies, MdFavorite, MdFavoriteBorder, MdDelete } from 'react-icons/md';
+import { MdLocalMovies, MdFavoriteBorder, MdDelete } from 'react-icons/md';
 import { AiFillStar } from 'react-icons/ai';
 import type { Movie } from '@/shared/types';
 import { getPosterUrl } from '@/shared/utils/imageUrl';
@@ -59,7 +59,8 @@ const MovieCardRoot = ({ movie, children }: MovieCardRootProps) => {
     <MovieCardContext.Provider value={contextValue}>
       <Link
         to={ROUTES.MOVIE_DETAILS.replace(':id', String(movie.id))}
-        className="card group relative overflow-hidden transition-transform hover:scale-105"
+        className="card group relative block overflow-hidden h-full"
+        aria-label={`Ver detalhes de ${movie.title}`}
       >
         {children}
       </Link>
@@ -78,13 +79,13 @@ const Poster = () => {
       {posterUrl ? (
         <img
           src={posterUrl}
-          alt={movie.title}
+          alt={`Poster do filme ${movie.title}`}
           className="h-full w-full object-cover transition-transform group-hover:scale-110"
           loading="lazy"
         />
       ) : (
         <div className="flex h-full w-full items-center justify-center bg-surface-light">
-          <MdLocalMovies className="h-16 w-16 text-text-secondary" />
+          <MdLocalMovies className="h-16 w-16 text-text-secondary" aria-hidden="true" />
         </div>
       )}
     </div>
@@ -138,24 +139,40 @@ const FavoriteButton = ({ variant = 'favorite' }: FavoriteButtonProps) => {
 
   const showDeleteIcon = variant === 'delete';
 
+  const { movie } = useMovieCardContext();
+
   return (
     <button
       onClick={handleFavoriteClick}
-      className="absolute right-2 top-2 flex h-10 w-10 items-center justify-center rounded-full bg-black/60 backdrop-blur-sm transition-colors hover:bg-black/80"
+      className={`absolute right-2 top-2 flex h-10 w-10 items-center justify-center rounded-full backdrop-blur-sm transition-all ${
+        showDeleteIcon
+          ? 'bg-red-600 hover:bg-red-700 shadow-lg shadow-red-600/25'
+          : isMovieFavorite
+            ? 'bg-black/60 hover:bg-black/80'
+            : 'bg-black/60 hover:bg-black/80'
+      }`}
       aria-label={
         showDeleteIcon
-          ? 'Remove from favorites'
+          ? `Remover ${movie.title} dos favoritos`
           : isMovieFavorite
-            ? 'Remove from favorites'
-            : 'Add to favorites'
+            ? `Remover ${movie.title} dos favoritos`
+            : `Adicionar ${movie.title} aos favoritos`
+      }
+      aria-pressed={isMovieFavorite}
+      title={
+        showDeleteIcon
+          ? 'Remover dos favoritos'
+          : isMovieFavorite
+            ? 'Remover dos favoritos'
+            : 'Adicionar aos favoritos'
       }
     >
       {showDeleteIcon ? (
-        <MdDelete className="h-6 w-6 text-accent-red" />
+        <MdDelete className="h-6 w-6 text-white" aria-hidden="true" />
       ) : isMovieFavorite ? (
-        <MdFavorite className="h-6 w-6 text-accent-red" />
+        <MdFavoriteBorder className="h-6 w-6 text-white" aria-hidden="true" />
       ) : (
-        <MdFavoriteBorder className="h-6 w-6 text-white" />
+        <MdFavoriteBorder className="h-6 w-6 text-white" aria-hidden="true" />
       )}
     </button>
   );
