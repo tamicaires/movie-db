@@ -18,12 +18,12 @@ export const Button = ({
   ...props
 }: ButtonProps) => {
   const baseStyles =
-    'inline-flex items-center justify-center rounded-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
+    'inline-flex items-center justify-center rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background disabled:opacity-50 disabled:cursor-not-allowed active:scale-95';
 
   const variantStyles = {
-    primary: 'bg-primary-600 text-white hover:bg-primary-700',
-    secondary: 'bg-gray-200 text-gray-900 hover:bg-gray-300',
-    ghost: 'text-gray-700 hover:bg-gray-100',
+    primary: 'bg-primary text-white hover:bg-primary/90 shadow-lg shadow-primary/25',
+    secondary: 'bg-surface text-foreground hover:bg-surface/80 border border-border',
+    ghost: 'text-foreground/70 hover:bg-surface/50 hover:text-foreground',
   };
 
   const sizeStyles = {

@@ -7,14 +7,14 @@
     --background: 0 0% 100%;
     --surface: 0 0% 98%;
     --foreground: 222 47% 11%;
-    --border: 214 32% 91%;
+    --border: 220 13% 95%;
   }
 
   .dark {
-    --background: 215 28% 7%;
-    --surface: 217 23% 11%;
+    --background: 217 33% 17%;
+    --surface: 217 33% 22%;
     --foreground: 210 40% 98%;
-    --border: 217 19% 18%;
+    --border: 217 19% 25%;
   }
 
   * {

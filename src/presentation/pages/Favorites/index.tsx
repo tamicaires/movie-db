@@ -49,7 +49,7 @@ export const Favorites = () => {
         <EmptyState
           icon={<MdFavorite className="h-20 w-20" />}
           title="Nenhum favorito ainda"
-          description="Explore filmes populares e adicione seus favoritos aqui"
+          description="Explore filmes e adicione seus favoritos aqui"
           action={
             <Button variant="primary" onClick={() => navigate(ROUTES.HOME)}>
               Descobrir filmes

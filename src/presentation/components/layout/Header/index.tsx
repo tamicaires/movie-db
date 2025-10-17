@@ -21,14 +21,24 @@ export const Header = () => {
     }
   }, [location.pathname, searchParams]);
 
+  const isActiveRoute = (path: string) => location.pathname === path;
+
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/80 shadow-lg shadow-black/5">
       <Container>
         <div className="flex h-16 items-center justify-between gap-4">
           <div className="flex items-center gap-4 lg:gap-8">
-            <Link to={ROUTES.HOME} className="flex items-center gap-2 flex-shrink-0">
-              <MdLocalMovies className="h-8 w-8 text-primary" />
-              <span className="text-xl font-bold text-foreground hidden sm:inline">MovieDB</span>
+            <Link
+              to={ROUTES.HOME}
+              className="flex items-center gap-2 flex-shrink-0 group"
+            >
+              <div className="relative">
+                <MdLocalMovies className="h-8 w-8 text-primary transition-transform group-hover:scale-110 group-hover:rotate-12" />
+                <div className="absolute inset-0 bg-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+              </div>
+              <span className="text-xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent hidden sm:inline">
+                MovieDB
+              </span>
             </Link>
           </div>
 
@@ -42,27 +52,43 @@ export const Header = () => {
               />
             </div>
           </div>
-          <nav className="hidden md:flex items-center gap-4 lg:gap-6">
+          <nav className="hidden md:flex items-center gap-2 lg:gap-3">
             <Link
               to={ROUTES.HOME}
-              className="text-sm font-medium flex items-center gap-2 text-foreground/80 transition-colors hover:text-foreground whitespace-nowrap"
+              className={`
+                text-sm font-medium flex items-center gap-2 px-3 py-2 rounded-lg
+                transition-all duration-200 whitespace-nowrap
+                ${isActiveRoute(ROUTES.HOME)
+                  ? 'bg-primary text-white'
+                  : 'text-foreground/70 hover:text-foreground hover:bg-surface/50'
+                }
+              `}
             >
-              <GoHomeFill />
+              <GoHomeFill className="text-base" />
               Home
             </Link>
             <Link
               to={ROUTES.FAVORITES}
-              className="relative flex items-center gap-2 text-sm font-medium text-foreground/80 transition-colors hover:text-foreground whitespace-nowrap"
+              className={`
+                relative flex items-center gap-2 px-3 py-2 rounded-lg
+                text-sm font-medium transition-all duration-200 whitespace-nowrap
+                ${isActiveRoute(ROUTES.FAVORITES)
+                  ? 'bg-primary text-white'
+                  : 'text-foreground/70 hover:text-foreground hover:bg-surface/50'
+                }
+              `}
             >
-              <MdFavorite />
+              <MdFavorite className="text-base" />
               Favoritos
               {favorites.length > 0 && (
-                <span className="absolute -right-4 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-xs text-white">
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white shadow-lg shadow-primary/50 animate-pulse">
                   {favorites.length}
                 </span>
               )}
             </Link>
-            <ThemeToggle />
+            <div className="ml-2 pl-2 border-l border-border/50">
+              <ThemeToggle />
+            </div>
           </nav>
         </div>
       </Container>

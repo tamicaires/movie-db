@@ -11,7 +11,7 @@ export const Home = () => {
   const [page, setPage] = useState(1);
   const dispatch = useDispatch();
   const { data, isLoading, error, refetch } = useGetPopularMoviesQuery({ page });
-  
+
   useEffect(() => {
     return () => {
       dispatch(tmdbApi.util.invalidateTags(['PopularMovies']));
@@ -26,13 +26,8 @@ export const Home = () => {
 
   return (
     <Container className="py-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-foreground">Filmes Populares</h1>
-        <p className="mt-2 text-text-secondary">Descubra os filmes mais populares do momento</p>
-      </div>
-
       {error && (
-        <ErrorMessage message="Erro ao carregar filmes populares" onRetry={() => refetch()} />
+        <ErrorMessage message="Erro ao carregar filmes" onRetry={() => refetch()} />
       )}
 
       {isLoading && page === 1 && <LoadingSpinner />}
