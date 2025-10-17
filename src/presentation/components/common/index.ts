@@ -4,3 +4,5 @@ export { ErrorMessage } from './ErrorMessage';
 export { EmptyState } from './EmptyState';
 export { ThemeToggle } from './ThemeToggle';
 export { HighlightText } from './HighlightText';
+export { RippleEffect, RippleWrapper } from './RippleEffect';
+export { ErrorBoundary } from './ErrorBoundary';

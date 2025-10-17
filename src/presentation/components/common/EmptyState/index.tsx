@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { RippleWrapper } from '../RippleEffect';
 
 interface EmptyStateProps {
   title: string;
@@ -10,9 +11,21 @@ interface EmptyStateProps {
 export const EmptyState = ({ title, description, icon, action }: EmptyStateProps) => {
   return (
     <div className="flex flex-col items-center justify-center p-12 text-center">
-      {icon && <div className="mb-4 text-gray-400">{icon}</div>}
-      <h3 className="mb-2 text-xl font-semibold text-gray-900">{title}</h3>
-      {description && <p className="mb-6 text-gray-600">{description}</p>}
+      {icon && (
+        <RippleWrapper
+          className="mb-4"
+          rippleProps={{
+            size: 'xl',
+            color: 'primary',
+            intensity: 'light',
+            rings: 3
+          }}
+        >
+          <div className="text-text-secondary">{icon}</div>
+        </RippleWrapper>
+      )}
+      <h3 className="mb-2 text-xl font-semibold text-foreground">{title}</h3>
+      {description && <p className="mb-6 text-text-secondary">{description}</p>}
       {action && <div>{action}</div>}
     </div>
   );
