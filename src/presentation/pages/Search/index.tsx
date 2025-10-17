@@ -34,14 +34,9 @@ export const Search = () => {
 
   return (
     <Container className="py-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-foreground">Resultados da Busca</h1>
-        {query && (
-          <p className="mt-2 text-text-secondary">
-            Buscando por: <span className="font-medium text-foreground">"{query}"</span>
-          </p>
-        )}
-      </div>
+      <h1 className="text-3xl font-bold text-foreground">
+        Resultados para <span className="text-yellow-400">"{query}"</span>
+      </h1>
 
       {!query ? (
         <EmptyState
@@ -66,9 +61,8 @@ export const Search = () => {
                     </>
                   ) : (
                     <>
-                      {data.total_results} {data.total_results === 1 ? 'resultado' : 'resultados'}{' '}
-                      {data.total_results === 1 ? 'encontrado' : 'encontrados'} para{' '}
-                      <span className="font-medium text-primary">"{query}"</span>
+                      {data.total_results} {data.total_results === 1 ? 'filme' : 'filmes'}{' '}
+                      {data.total_results === 1 ? 'encontrado' : 'encontrados'}
                     </>
                   )}
                 </p>

@@ -33,10 +33,10 @@ export const Header = () => {
               className="flex items-center gap-2 flex-shrink-0 group"
             >
               <div className="relative">
-                <MdLocalMovies className="h-8 w-8 text-primary transition-transform group-hover:scale-110 group-hover:rotate-12" />
+                <MdLocalMovies className="h-8 w-8 text-yellow-500 transition-transform group-hover:scale-110 group-hover:rotate-12" />
                 <div className="absolute inset-0 bg-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent hidden sm:inline">
+              <span className="text-xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent hidden sm:inline uppercase">
                 MovieDB
               </span>
             </Link>
