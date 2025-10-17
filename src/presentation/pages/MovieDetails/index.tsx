@@ -1,11 +1,18 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { MdArrowBack, MdCalendarToday, MdAccessTime, MdStar } from 'react-icons/md';
+import {
+  MdArrowBack,
+  MdCalendarToday,
+  MdAccessTime,
+  MdStar,
+  MdFavoriteBorder,
+} from 'react-icons/md';
 import { useGetMovieDetailsQuery } from '@/presentation/store/api/tmdbApi';
 import { useFavorites } from '@/presentation/hooks';
 import { Container } from '@/presentation/components/layout';
 import { LoadingSpinner, ErrorMessage, Button } from '@/presentation/components/common';
 import { getBackdropUrl, getPosterUrl } from '@/shared/utils/imageUrl';
-import { formatDate, formatCurrency, formatRuntime } from '@/shared/utils/formatters';
+import { formatDate, formatRuntime } from '@/shared/utils/formatters';
+import { IoMdHeartDislike } from 'react-icons/io';
 
 export const MovieDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -71,6 +78,20 @@ export const MovieDetails = () => {
 
             {movie.tagline && <p className="mb-4 italic text-text-secondary">{movie.tagline}</p>}
 
+            {/* Genres */}
+            {movie.genres && movie.genres.length > 0 && (
+              <div className="mb-6 flex flex-wrap gap-2">
+                {movie.genres.map((genre) => (
+                  <span
+                    key={genre.id}
+                    className="rounded-full border border-border bg-surface px-4 py-1 text-sm"
+                  >
+                    {genre.name}
+                  </span>
+                ))}
+              </div>
+            )}
+
             <div className="mb-6 flex flex-wrap items-center gap-4 text-sm">
               {movie.release_date && (
                 <div className="flex items-center gap-2">
@@ -93,24 +114,16 @@ export const MovieDetails = () => {
               </div>
             </div>
 
-            {/* Genres */}
-            {movie.genres && movie.genres.length > 0 && (
-              <div className="mb-6 flex flex-wrap gap-2">
-                {movie.genres.map((genre) => (
-                  <span
-                    key={genre.id}
-                    className="rounded-full border border-border bg-surface px-4 py-1 text-sm"
-                  >
-                    {genre.name}
-                  </span>
-                ))}
-              </div>
-            )}
+            {/* Overview */}
+            <div className="mb-6">
+              <h2 className="mb-3 text-2xl font-semibold text-foreground">Sinopse</h2>
+              <p className="leading-relaxed text-foreground">{movie.overview}</p>
+            </div>
 
             {/* Actions */}
             <div className="mb-8">
               <Button
-                variant={isMovieFavorite ? 'secondary' : 'primary'}
+                variant={isMovieFavorite ? 'danger' : 'primary'}
                 onClick={() =>
                   toggleFavorite({
                     ...movie,
@@ -118,45 +131,13 @@ export const MovieDetails = () => {
                   })
                 }
               >
+                {isMovieFavorite ? (
+                  <IoMdHeartDislike className="mr-2 h-5 w-5" />
+                ) : (
+                  <MdFavoriteBorder className="mr-2 h-5 w-5" />
+                )}
                 {isMovieFavorite ? 'Remover dos Favoritos' : 'Adicionar aos Favoritos'}
               </Button>
-            </div>
-
-            {/* Overview */}
-            <div className="mb-6">
-              <h2 className="mb-3 text-2xl font-semibold text-foreground">Sinopse</h2>
-              <p className="leading-relaxed text-foreground">{movie.overview}</p>
-            </div>
-
-            {/* Additional Info */}
-            <div className="grid gap-4 md:grid-cols-2">
-              {movie.budget > 0 && (
-                <div>
-                  <h3 className="mb-1 font-semibold text-foreground">Orçamento</h3>
-                  <p className="text-text-secondary">{formatCurrency(movie.budget)}</p>
-                </div>
-              )}
-
-              {movie.revenue > 0 && (
-                <div>
-                  <h3 className="mb-1 font-semibold text-foreground">Receita</h3>
-                  <p className="text-text-secondary">{formatCurrency(movie.revenue)}</p>
-                </div>
-              )}
-
-              {movie.status && (
-                <div>
-                  <h3 className="mb-1 font-semibold text-foreground">Status</h3>
-                  <p className="text-text-secondary">{movie.status}</p>
-                </div>
-              )}
-
-              {movie.original_language && (
-                <div>
-                  <h3 className="mb-1 font-semibold text-foreground">Idioma Original</h3>
-                  <p className="text-text-secondary uppercase">{movie.original_language}</p>
-                </div>
-              )}
             </div>
           </div>
         </div>
@@ -164,3 +145,4 @@ export const MovieDetails = () => {
     </div>
   );
 };
+export default MovieDetails;

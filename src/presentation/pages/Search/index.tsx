@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { FiSearch } from 'react-icons/fi';
+import { MdSearchOff } from 'react-icons/md';
 import { BiLoaderAlt } from 'react-icons/bi';
 import { useSearchMoviesQuery, tmdbApi } from '@/presentation/store/api/tmdbApi';
 import { Container } from '@/presentation/components/layout';
@@ -40,7 +40,7 @@ export const Search = () => {
 
       {!query ? (
         <EmptyState
-          icon={<FiSearch className="h-20 w-20" />}
+          icon={<MdSearchOff className="h-20 w-20" />}
           title="Faça uma busca"
           description="Use o campo de busca no topo para encontrar filmes"
         />
@@ -116,3 +116,4 @@ export const Search = () => {
     </Container>
   );
 };
+export default Search;

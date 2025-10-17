@@ -1,4 +1,4 @@
-import { MdFavorite } from 'react-icons/md';
+import { MdFavoriteBorder } from 'react-icons/md';
 import { useFavorites } from '@/presentation/hooks';
 import { Container } from '@/presentation/components/layout';
 import { MovieGrid } from '@/presentation/components/features';
@@ -47,9 +47,9 @@ export const Favorites = () => {
 
       {favorites.length === 0 ? (
         <EmptyState
-          icon={<MdFavorite className="h-20 w-20" />}
-          title="Nenhum favorito ainda"
-          description="Explore filmes e adicione seus favoritos aqui"
+          icon={<MdFavoriteBorder className="h-20 w-20" />}
+          title="Nenhum filme favorito ainda"
+          description="Começe explorando filmes populares e adicione seus favoritos"
           action={
             <Button variant="primary" onClick={() => navigate(ROUTES.HOME)}>
               Descobrir filmes
@@ -71,3 +71,4 @@ export const Favorites = () => {
     </Container>
   );
 };
+export default Favorites;
