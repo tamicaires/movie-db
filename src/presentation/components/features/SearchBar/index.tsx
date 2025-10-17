@@ -61,7 +61,7 @@ export const SearchBar = ({
   };
 
   const inputClassName = compact
-    ? 'block w-full rounded-lg border border-border bg-surface py-2 pl-9 pr-3 text-sm text-foreground placeholder-text-secondary transition-colors focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary'
+    ? 'block w-full rounded-full border border-border bg-surface py-2 pl-9 pr-3 text-sm text-foreground placeholder-text-secondary transition-colors focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary'
     : 'block w-full rounded-lg border border-border bg-surface py-3 pl-10 pr-12 text-foreground placeholder-text-secondary transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2';
 
   const iconSize = compact ? 'h-4 w-4' : 'h-5 w-5';

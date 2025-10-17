@@ -7,13 +7,13 @@ export const ThemeToggle = () => {
   return (
     <button
       onClick={toggleTheme}
-      className="relative inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-surface transition-colors hover:bg-surface-light focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+      className="relative inline-flex h-10 w-10 items-center justify-center rounded-full hover:border border-border  transition-colors hover:bg-surface-light focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
       aria-label="Toggle theme"
     >
       {theme === 'light' ? (
-        <FiMoon className="h-5 w-5 text-foreground" />
+        <FiMoon className="h-4 w-4 text-foreground" />
       ) : (
-        <FiSun className="h-5 w-5 text-foreground" />
+        <FiSun className="h-4 w-4 text-foreground" />
       )}
     </button>
   );

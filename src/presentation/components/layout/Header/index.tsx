@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams, useLocation } from 'react-router-dom';
-import { MdLocalMovies } from 'react-icons/md';
+import { MdFavorite, MdLocalMovies } from 'react-icons/md';
 import { Container } from '../Container';
 import { SearchBar } from '@/presentation/components/features';
 import { ThemeToggle } from '@/presentation/components/common/ThemeToggle';
 import { ROUTES } from '@/shared/constants';
 import { useFavorites } from '@/presentation/hooks/useFavorites';
+import { GoHomeFill } from 'react-icons/go';
 
 export const Header = () => {
   const { favorites } = useFavorites();
@@ -29,32 +30,6 @@ export const Header = () => {
               <MdLocalMovies className="h-8 w-8 text-primary" />
               <span className="text-xl font-bold text-foreground hidden sm:inline">MovieDB</span>
             </Link>
-
-            <nav className="hidden md:flex items-center gap-4 lg:gap-6">
-              <Link
-                to={ROUTES.HOME}
-                className="text-sm font-medium text-foreground/80 transition-colors hover:text-foreground whitespace-nowrap"
-              >
-                Populares
-              </Link>
-              <Link
-                to={ROUTES.SEARCH}
-                className="text-sm font-medium text-foreground/80 transition-colors hover:text-foreground whitespace-nowrap"
-              >
-                Pesquisar
-              </Link>
-              <Link
-                to={ROUTES.FAVORITES}
-                className="relative text-sm font-medium text-foreground/80 transition-colors hover:text-foreground whitespace-nowrap"
-              >
-                Favoritos
-                {favorites.length > 0 && (
-                  <span className="absolute -right-4 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs text-white">
-                    {favorites.length}
-                  </span>
-                )}
-              </Link>
-            </nav>
           </div>
 
           <div className="flex items-center gap-3 flex-1 max-w-md">
@@ -66,8 +41,29 @@ export const Header = () => {
                 compact
               />
             </div>
-            <ThemeToggle />
           </div>
+          <nav className="hidden md:flex items-center gap-4 lg:gap-6">
+            <Link
+              to={ROUTES.HOME}
+              className="text-sm font-medium flex items-center gap-2 text-foreground/80 transition-colors hover:text-foreground whitespace-nowrap"
+            >
+              <GoHomeFill />
+              Home
+            </Link>
+            <Link
+              to={ROUTES.FAVORITES}
+              className="relative flex items-center gap-2 text-sm font-medium text-foreground/80 transition-colors hover:text-foreground whitespace-nowrap"
+            >
+              <MdFavorite />
+              Favoritos
+              {favorites.length > 0 && (
+                <span className="absolute -right-4 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-xs text-white">
+                  {favorites.length}
+                </span>
+              )}
+            </Link>
+            <ThemeToggle />
+          </nav>
         </div>
       </Container>
     </header>
