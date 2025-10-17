@@ -42,7 +42,12 @@ export const Home = () => {
         <>
           <MovieGrid>
             {data.results.map((movie) => (
-              <MovieCard key={movie.id} movie={movie} />
+              <MovieCard key={movie.id} movie={movie}>
+                <MovieCard.Poster />
+                <MovieCard.Gradient />
+                <MovieCard.Info />
+                <MovieCard.FavoriteButton />
+              </MovieCard>
             ))}
           </MovieGrid>
 

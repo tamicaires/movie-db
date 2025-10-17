@@ -59,7 +59,12 @@ export const Favorites = () => {
       ) : (
         <MovieGrid>
           {favorites.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} showDeleteIcon />
+            <MovieCard key={movie.id} movie={movie}>
+              <MovieCard.Poster />
+              <MovieCard.Gradient />
+              <MovieCard.Info />
+              <MovieCard.FavoriteButton variant="delete" />
+            </MovieCard>
           ))}
         </MovieGrid>
       )}

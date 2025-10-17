@@ -45,8 +45,8 @@ export const Search = () => {
   };
 
   return (
-    <Container className="py-8">
-      <div className="mb-8">
+    <Container className="py-8 rounded-xl">
+      <div className="mb-8 rounded-2xl">
         <h1 className="mb-4 text-3xl font-bold text-foreground">Buscar Filmes</h1>
         <SearchBar
           initialValue={query}
@@ -83,7 +83,12 @@ export const Search = () => {
                 <>
                   <MovieGrid>
                     {data.results.map((movie) => (
-                      <MovieCard key={movie.id} movie={movie} searchQuery={debouncedQuery} />
+                      <MovieCard key={movie.id} movie={movie}>
+                        <MovieCard.Poster />
+                        <MovieCard.Gradient />
+                        <MovieCard.Info searchQuery={debouncedQuery} />
+                        <MovieCard.FavoriteButton />
+                      </MovieCard>
                     ))}
                   </MovieGrid>
 
