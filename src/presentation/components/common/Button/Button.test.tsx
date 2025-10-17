@@ -12,19 +12,19 @@ describe('Button', () => {
   it('should apply primary variant by default', () => {
     render(<Button>Primary</Button>);
     const button = screen.getByRole('button');
-    expect(button).toHaveClass('bg-primary-600');
+    expect(button).toHaveClass('bg-primary');
   });
 
   it('should apply secondary variant', () => {
     render(<Button variant="secondary">Secondary</Button>);
     const button = screen.getByRole('button');
-    expect(button).toHaveClass('bg-gray-200');
+    expect(button).toHaveClass('bg-surface');
   });
 
   it('should apply ghost variant', () => {
     render(<Button variant="ghost">Ghost</Button>);
     const button = screen.getByRole('button');
-    expect(button).toHaveClass('text-gray-700');
+    expect(button).toHaveClass('text-foreground/70');
   });
 
   it('should apply medium size by default', () => {
