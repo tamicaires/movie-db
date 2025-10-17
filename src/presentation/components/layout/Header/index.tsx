@@ -1,26 +1,24 @@
-import { useState } from 'react';
-import type { FormEvent } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useSearchParams, useLocation } from 'react-router-dom';
 import { MdLocalMovies } from 'react-icons/md';
-import { FiSearch } from 'react-icons/fi';
 import { Container } from '../Container';
+import { SearchBar } from '@/presentation/components/features';
 import { ThemeToggle } from '@/presentation/components/common/ThemeToggle';
 import { ROUTES } from '@/shared/constants';
 import { useFavorites } from '@/presentation/hooks/useFavorites';
 
 export const Header = () => {
   const { favorites } = useFavorites();
-  const navigate = useNavigate();
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState('');
 
-  const handleSearch = (e: FormEvent) => {
-    e.preventDefault();
-    const trimmedQuery = searchQuery.trim();
-    if (trimmedQuery) {
-      navigate(`${ROUTES.SEARCH}?q=${encodeURIComponent(trimmedQuery)}`);
-      setSearchQuery('');
+  useEffect(() => {
+    if (location.pathname === ROUTES.SEARCH) {
+      const queryFromUrl = searchParams.get('q') || '';
+      setSearchQuery(queryFromUrl);
     }
-  };
+  }, [location.pathname, searchParams]);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -60,20 +58,14 @@ export const Header = () => {
           </div>
 
           <div className="flex items-center gap-3 flex-1 max-w-md">
-            <form onSubmit={handleSearch} className="flex-1">
-              <div className="relative">
-                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                  <FiSearch className="h-4 w-4 text-text-secondary" />
-                </div>
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Buscar filmes..."
-                  className="block w-full rounded-lg border border-border bg-surface py-2 pl-9 pr-3 text-sm text-foreground placeholder-text-secondary transition-colors focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
-                />
-              </div>
-            </form>
+            <div className="flex-1">
+              <SearchBar
+                value={searchQuery}
+                onChange={setSearchQuery}
+                placeholder="Buscar filmes..."
+                compact
+              />
+            </div>
             <ThemeToggle />
           </div>
         </div>

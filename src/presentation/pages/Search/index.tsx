@@ -2,41 +2,28 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { FiSearch } from 'react-icons/fi';
 import { useSearchMoviesQuery, tmdbApi } from '@/presentation/store/api/tmdbApi';
-import { useDebounce } from '@/presentation/hooks';
 import { Container } from '@/presentation/components/layout';
-import { SearchBar, MovieGrid, MovieCard } from '@/presentation/components/features';
+import { MovieGrid, MovieCard } from '@/presentation/components/features';
 import { LoadingSpinner, ErrorMessage, EmptyState, Button } from '@/presentation/components/common';
 import { useDispatch } from 'react-redux';
 
 export const Search = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const queryParam = searchParams.get('q') || '';
-  const [query, setQuery] = useState(queryParam);
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get('q') || '';
   const [page, setPage] = useState(1);
   const dispatch = useDispatch();
 
-  const debouncedQuery = useDebounce(query, 500);
-
   const { data, isLoading, error, refetch } = useSearchMoviesQuery(
-    { query: debouncedQuery, page },
-    { skip: !debouncedQuery }
+    { query, page },
+    { skip: !query }
   );
 
   useEffect(() => {
-    if (debouncedQuery) {
-      setSearchParams({ q: debouncedQuery });
-      setPage(1);
-      // Reset cache when search query changes
-      dispatch(tmdbApi.util.invalidateTags(['SearchResults']));
-    } else {
-      setSearchParams({});
-    }
-  }, [debouncedQuery, setSearchParams, dispatch]);
-
-  const handleSearch = (searchQuery: string) => {
-    setQuery(searchQuery);
     setPage(1);
-  };
+    if (query) {
+      dispatch(tmdbApi.util.invalidateTags(['SearchResults']));
+    }
+  }, [query, dispatch]);
 
   const handleLoadMore = () => {
     if (data && page < data.total_pages) {
@@ -45,21 +32,21 @@ export const Search = () => {
   };
 
   return (
-    <Container className="py-8 rounded-xl">
-      <div className="mb-8 rounded-2xl">
-        <h1 className="mb-4 text-3xl font-bold text-foreground">Buscar Filmes</h1>
-        <SearchBar
-          initialValue={query}
-          onSearch={handleSearch}
-          placeholder="Digite o nome do filme..."
-        />
+    <Container className="py-8">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-foreground">Resultados da Busca</h1>
+        {query && (
+          <p className="mt-2 text-text-secondary">
+            Buscando por: <span className="font-medium text-foreground">"{query}"</span>
+          </p>
+        )}
       </div>
 
-      {!debouncedQuery ? (
+      {!query ? (
         <EmptyState
           icon={<FiSearch className="h-20 w-20" />}
           title="Faça uma busca"
-          description="Digite o nome de um filme para começar a pesquisar"
+          description="Use o campo de busca no topo para encontrar filmes"
         />
       ) : (
         <>
@@ -71,11 +58,18 @@ export const Search = () => {
             <>
               <div className="mb-6">
                 <p className="text-text-secondary">
-                  {data.total_results === 0
-                    ? `Nenhum resultado encontrado para "${debouncedQuery}"`
-                    : `${data.total_results} ${
-                        data.total_results === 1 ? 'resultado encontrado' : 'resultados encontrados'
-                      } para "${debouncedQuery}"`}
+                  {data.total_results === 0 ? (
+                    <>
+                      Nenhum resultado encontrado para{' '}
+                      <span className="font-medium text-primary">"{query}"</span>
+                    </>
+                  ) : (
+                    <>
+                      {data.total_results} {data.total_results === 1 ? 'resultado' : 'resultados'}{' '}
+                      {data.total_results === 1 ? 'encontrado' : 'encontrados'} para{' '}
+                      <span className="font-medium text-primary">"{query}"</span>
+                    </>
+                  )}
                 </p>
               </div>
 
@@ -86,7 +80,7 @@ export const Search = () => {
                       <MovieCard key={movie.id} movie={movie}>
                         <MovieCard.Poster />
                         <MovieCard.Gradient />
-                        <MovieCard.Info searchQuery={debouncedQuery} />
+                        <MovieCard.Info searchQuery={query} />
                         <MovieCard.FavoriteButton />
                       </MovieCard>
                     ))}

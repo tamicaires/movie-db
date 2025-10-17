@@ -13,7 +13,6 @@ export const Home = () => {
   const { data, isLoading, error, refetch } = useGetPopularMoviesQuery({ page });
   
   useEffect(() => {
-    // Reset cache when component mounts
     return () => {
       dispatch(tmdbApi.util.invalidateTags(['PopularMovies']));
     };
