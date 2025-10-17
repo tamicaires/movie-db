@@ -11,7 +11,7 @@ export const Home = () => {
   const [page, setPage] = useState(1);
   const dispatch = useDispatch();
   const { data, isLoading, error, refetch } = useGetPopularMoviesQuery({ page });
-
+  
   useEffect(() => {
     // Reset cache when component mounts
     return () => {
