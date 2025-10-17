@@ -31,3 +31,6 @@ dist-ssr
 # Test coverage
 coverage
 coverage/
+
+# Internal documentation
+docs/
