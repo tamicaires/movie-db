@@ -51,4 +51,5 @@ export const QUERY_KEYS = {
  */
 export const STORAGE_KEYS = {
   FAVORITES: 'tmdb_favorites',
+  VIEW_MODE: 'tmdb_view_mode',
 } as const;

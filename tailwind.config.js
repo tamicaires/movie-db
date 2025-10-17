@@ -33,6 +33,7 @@ export default {
         accent: {
           red: '#E54D60',
         },
+        foreground: 'hsl(var(--foreground))',
         text: {
           primary: '#F0F6FC',
           secondary: '#8B949E',

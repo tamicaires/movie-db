@@ -21,7 +21,7 @@ export const tmdbApi = createApi({
     },
   }),
 
-  tagTypes: ['PopularMovies', 'MovieDetails', 'SearchResults'],
+  tagTypes: ['PopularMovies', 'MovieDetails', 'SearchResults', 'TopRatedMovies', 'UpcomingMovies', 'NowPlayingMovies'],
 
   endpoints: (builder) => ({
     getPopularMovies: builder.query<PaginatedMoviesResponse, PaginatedParams>({
@@ -80,6 +80,48 @@ export const tmdbApi = createApi({
       query: (id) => `/movie/${id}`,
       providesTags: (_result, _error, id) => [{ type: 'MovieDetails', id }],
     }),
+
+    getTopRatedMovies: builder.query<PaginatedMoviesResponse, PaginatedParams>({
+      query: ({ page = 1 }) => ({
+        url: '/movie/top_rated',
+        params: { page },
+      }),
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.results.map(({ id }) => ({ type: 'TopRatedMovies' as const, id })),
+              { type: 'TopRatedMovies', id: 'LIST' },
+            ]
+          : [{ type: 'TopRatedMovies', id: 'LIST' }],
+    }),
+
+    getUpcomingMovies: builder.query<PaginatedMoviesResponse, PaginatedParams>({
+      query: ({ page = 1 }) => ({
+        url: '/movie/upcoming',
+        params: { page },
+      }),
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.results.map(({ id }) => ({ type: 'UpcomingMovies' as const, id })),
+              { type: 'UpcomingMovies', id: 'LIST' },
+            ]
+          : [{ type: 'UpcomingMovies', id: 'LIST' }],
+    }),
+
+    getNowPlayingMovies: builder.query<PaginatedMoviesResponse, PaginatedParams>({
+      query: ({ page = 1 }) => ({
+        url: '/movie/now_playing',
+        params: { page },
+      }),
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.results.map(({ id }) => ({ type: 'NowPlayingMovies' as const, id })),
+              { type: 'NowPlayingMovies', id: 'LIST' },
+            ]
+          : [{ type: 'NowPlayingMovies', id: 'LIST' }],
+    }),
   }),
 });
 
@@ -88,4 +130,7 @@ export const {
   useSearchMoviesQuery,
   useGetMovieDetailsQuery,
   useLazySearchMoviesQuery,
+  useGetTopRatedMoviesQuery,
+  useGetUpcomingMoviesQuery,
+  useGetNowPlayingMoviesQuery,
 } = tmdbApi;
