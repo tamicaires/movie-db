@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { FiSearch } from 'react-icons/fi';
+import { BiLoaderAlt } from 'react-icons/bi';
 import { useSearchMoviesQuery, tmdbApi } from '@/presentation/store/api/tmdbApi';
 import { Container } from '@/presentation/components/layout';
 import { MovieGrid, MovieCard } from '@/presentation/components/features';
@@ -95,7 +96,14 @@ export const Search = () => {
                         disabled={isLoading}
                         isLoading={isLoading && page > 1}
                       >
-                        {isLoading && page > 1 ? 'Carregando...' : 'Carregar mais'}
+                        {isLoading && page > 1 ? (
+                          <span className="flex items-center gap-2">
+                            <BiLoaderAlt className="h-5 w-5 animate-spin" />
+                            Carregando...
+                          </span>
+                        ) : (
+                          'Carregar mais'
+                        )}
                       </Button>
                     </div>
                   )}

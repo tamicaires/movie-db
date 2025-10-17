@@ -6,6 +6,7 @@ import { MovieCard } from '@/presentation/components/features';
 import { LoadingSpinner, ErrorMessage, Button } from '@/presentation/components/common';
 import { useDispatch } from 'react-redux';
 import { tmdbApi } from '@/presentation/store/api/tmdbApi';
+import { BiLoaderAlt } from 'react-icons/bi';
 
 export const Home = () => {
   const [page, setPage] = useState(1);
@@ -54,7 +55,14 @@ export const Home = () => {
                 disabled={isLoading}
                 isLoading={isLoading && page > 1}
               >
-                {isLoading && page > 1 ? 'Carregando...' : 'Carregar mais'}
+                {isLoading && page > 1 ? (
+                  <span className="flex items-center gap-2">
+                    <BiLoaderAlt className="h-5 w-5 animate-spin" />
+                    Carregando...
+                  </span>
+                ) : (
+                  'Carregar mais'
+                )}
               </Button>
             </div>
           )}
