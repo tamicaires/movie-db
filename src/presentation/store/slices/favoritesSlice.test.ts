@@ -8,6 +8,7 @@ import favoritesReducer, {
   selectSortedFavorites,
 } from './favoritesSlice';
 import type { Movie } from '@/shared/types';
+import type { RootState } from '@/presentation/store';
 
 vi.mock('@/infrastructure/storage/localStorage', () => ({
   saveToStorage: vi.fn(),
@@ -91,11 +92,11 @@ describe('favoritesSlice', () => {
     };
 
     it('should select favorites items', () => {
-      expect(selectFavorites(mockState as any)).toEqual([mockMovie, mockMovie2]);
+      expect(selectFavorites(mockState as unknown as RootState)).toEqual([mockMovie, mockMovie2]);
     });
 
     it('should select sort by', () => {
-      expect(selectSortBy(mockState as any)).toBe('date-desc');
+      expect(selectSortBy(mockState as unknown as RootState)).toBe('date-desc');
     });
 
     it('should sort by title ascending', () => {
@@ -103,7 +104,7 @@ describe('favoritesSlice', () => {
         ...mockState,
         favorites: { ...mockState.favorites, sortBy: 'title-asc' as const },
       };
-      const sorted = selectSortedFavorites(state as any);
+      const sorted = selectSortedFavorites(state as unknown as RootState);
       expect(sorted[0].title).toBe('Another Movie');
       expect(sorted[1].title).toBe('Test Movie');
     });
@@ -113,7 +114,7 @@ describe('favoritesSlice', () => {
         ...mockState,
         favorites: { ...mockState.favorites, sortBy: 'title-desc' as const },
       };
-      const sorted = selectSortedFavorites(state as any);
+      const sorted = selectSortedFavorites(state as unknown as RootState);
       expect(sorted[0].title).toBe('Test Movie');
       expect(sorted[1].title).toBe('Another Movie');
     });
@@ -123,7 +124,7 @@ describe('favoritesSlice', () => {
         ...mockState,
         favorites: { ...mockState.favorites, sortBy: 'rating-desc' as const },
       };
-      const sorted = selectSortedFavorites(state as any);
+      const sorted = selectSortedFavorites(state as unknown as RootState);
       expect(sorted[0].vote_average).toBe(8.5);
       expect(sorted[1].vote_average).toBe(7.5);
     });
@@ -133,7 +134,7 @@ describe('favoritesSlice', () => {
         ...mockState,
         favorites: { ...mockState.favorites, sortBy: 'rating-asc' as const },
       };
-      const sorted = selectSortedFavorites(state as any);
+      const sorted = selectSortedFavorites(state as unknown as RootState);
       expect(sorted[0].vote_average).toBe(7.5);
       expect(sorted[1].vote_average).toBe(8.5);
     });
@@ -143,7 +144,7 @@ describe('favoritesSlice', () => {
         ...mockState,
         favorites: { ...mockState.favorites, sortBy: 'date-desc' as const },
       };
-      const sorted = selectSortedFavorites(state as any);
+      const sorted = selectSortedFavorites(state as unknown as RootState);
       expect(sorted[0].release_date).toBe('2024-01-01');
       expect(sorted[1].release_date).toBe('2023-01-01');
     });
@@ -153,7 +154,7 @@ describe('favoritesSlice', () => {
         ...mockState,
         favorites: { ...mockState.favorites, sortBy: 'date-asc' as const },
       };
-      const sorted = selectSortedFavorites(state as any);
+      const sorted = selectSortedFavorites(state as unknown as RootState);
       expect(sorted[0].release_date).toBe('2023-01-01');
       expect(sorted[1].release_date).toBe('2024-01-01');
     });

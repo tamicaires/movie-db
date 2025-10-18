@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { lazy, Suspense } from 'react';
 import type { RouteObject } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
@@ -10,6 +11,7 @@ const MovieDetails = lazy(() => import('@/presentation/pages/MovieDetails'));
 const Favorites = lazy(() => import('@/presentation/pages/Favorites'));
 const Search = lazy(() => import('@/presentation/pages/Search'));
 
+// Helper component for Suspense wrapping (not exported, used only in routes)
 const SuspenseWrapper = ({ children }: { children: React.ReactNode }) => (
   <Suspense
     fallback={

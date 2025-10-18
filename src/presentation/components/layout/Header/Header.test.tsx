@@ -1,9 +1,8 @@
 import { describe, it, expect, beforeAll } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { BrowserRouter, MemoryRouter } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import userEvent from '@testing-library/user-event';
 import { Header } from './index';
 import favoritesReducer from '@/presentation/store/slices/favoritesSlice';
 import viewPreferenceReducer from '@/presentation/store/slices/viewPreferenceSlice';
