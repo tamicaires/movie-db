@@ -126,7 +126,7 @@ describe('LoadingSpinner', () => {
       const { container } = render(<LoadingSpinner />);
 
       const statusWrapper = container.querySelector('[role="status"]');
-      const spinner = container.querySelector('.animate-spin');
+      const spinner = container.querySelector('.animate-spin') as HTMLElement;
 
       expect(statusWrapper).toContainElement(spinner);
     });
