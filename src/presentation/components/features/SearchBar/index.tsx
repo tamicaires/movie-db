@@ -68,12 +68,12 @@ export const SearchBar = ({
   const iconPadding = compact ? 'pl-3' : 'pl-3';
 
   return (
-    <form onSubmit={handleSubmit} className="w-full">
+    <form onSubmit={handleSubmit} className="w-full" role="search">
       <div className="relative">
         <div
           className={`pointer-events-none absolute inset-y-0 left-0 flex items-center ${iconPadding}`}
         >
-          <FiSearch className={`${iconSize} text-text-secondary`} />
+          <FiSearch className={`${iconSize} text-text-secondary`} aria-hidden="true" />
         </div>
         <input
           type="text"
@@ -81,15 +81,17 @@ export const SearchBar = ({
           onChange={(e) => handleChange(e.target.value)}
           placeholder={placeholder}
           className={inputClassName}
+          aria-label="Buscar filmes"
+          autoComplete="off"
         />
         {query && !compact && (
           <button
             type="button"
             onClick={handleClear}
-            className="absolute inset-y-0 right-0 flex items-center pr-3 text-text-secondary hover:text-foreground"
-            aria-label="Clear search"
+            className="absolute inset-y-0 right-0 flex items-center pr-3 text-text-secondary hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary rounded"
+            aria-label="Limpar busca"
           >
-            <FiX className="h-5 w-5" />
+            <FiX className="h-5 w-5" aria-hidden="true" />
           </button>
         )}
       </div>
