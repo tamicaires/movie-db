@@ -95,7 +95,9 @@ describe('MovieCard', () => {
         </MovieCard>
       );
 
-      expect(screen.getByText('14/01/2024')).toBeInTheDocument();
+      // Mock has release_date: '2024-01-15'
+      // formatDate uses UTC timezone, so always renders as day 15
+      expect(screen.getByText('15/01/2024')).toBeInTheDocument();
     });
   });
 

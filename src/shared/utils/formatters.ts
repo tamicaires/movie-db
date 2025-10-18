@@ -10,6 +10,10 @@
  *
  * @example
  * formatDate('2024-03-15') // '15/03/2024'
+ *
+ * @note Uses UTC timezone to ensure consistent formatting regardless of
+ * server/CI timezone. Movie release dates are calendar dates (day precision),
+ * not timestamps, so timezone conversion is not semantically correct.
  */
 export const formatDate = (dateString: string): string => {
   if (!dateString) return '';
@@ -19,7 +23,11 @@ export const formatDate = (dateString: string): string => {
 
     if (isNaN(date.getTime())) return '';
 
-    return new Intl.DateTimeFormat('pt-BR').format(date);
+    // Force UTC to avoid timezone-related inconsistencies
+    // '2024-01-15' should always render as '15/01/2024', not '14/01/2024'
+    return new Intl.DateTimeFormat('pt-BR', {
+      timeZone: 'UTC',
+    }).format(date);
   } catch {
     return '';
   }

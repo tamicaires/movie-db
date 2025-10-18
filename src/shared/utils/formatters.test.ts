@@ -5,9 +5,7 @@ describe('formatters', () => {
   describe('formatDate', () => {
     it('should format valid date string', () => {
       const result = formatDate('2024-06-15');
-      // Check it returns a valid date pattern (DD/MM/YYYY)
-      expect(result).toMatch(/^\d{2}\/\d{2}\/\d{4}$/);
-      expect(result.length).toBeGreaterThan(0);
+      expect(result).toBe('15/06/2024');
     });
 
     it('should return empty string for empty input', () => {
@@ -18,9 +16,24 @@ describe('formatters', () => {
       expect(formatDate('invalid-date')).toBe('');
     });
 
-    it('should handle year correctly', () => {
-      const result = formatDate('2024-06-15');
-      expect(result).toContain('2024');
+    it('should format date consistently regardless of timezone', () => {
+      // This date was causing CI failures due to timezone differences
+      // Must always return day 15, not 14 or 16
+      expect(formatDate('2024-01-15')).toBe('15/01/2024');
+    });
+
+    it('should handle end-of-month dates correctly', () => {
+      // Edge case: timezone shift could change month
+      expect(formatDate('2024-01-31')).toBe('31/01/2024');
+      expect(formatDate('2024-12-31')).toBe('31/12/2024');
+    });
+
+    it('should handle beginning of year correctly', () => {
+      expect(formatDate('2024-01-01')).toBe('01/01/2024');
+    });
+
+    it('should handle leap year dates', () => {
+      expect(formatDate('2024-02-29')).toBe('29/02/2024');
     });
   });
 
