@@ -32,5 +32,9 @@ dist-ssr
 coverage
 coverage/
 
+# Playwright
+playwright-report/
+test-results/
+
 # Internal documentation
 docs/
