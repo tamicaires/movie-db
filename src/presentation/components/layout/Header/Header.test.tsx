@@ -77,8 +77,9 @@ describe('Header', () => {
     it('should render theme toggle', () => {
       renderWithProviders(<Header />);
 
-      const themeToggle = screen.getByRole('button', { name: /toggle theme/i });
+      const themeToggle = screen.getByRole('button', { name: /ativar tema (escuro|claro)/i });
       expect(themeToggle).toBeInTheDocument();
+      expect(themeToggle).toHaveAttribute('aria-pressed');
     });
   });
 
@@ -228,7 +229,7 @@ describe('Header', () => {
       expect(viewModeToggle).toHaveAttribute('title');
     });
 
-    it('should have accessible favorites count in badge', () => {
+    it('should have badge hidden from screen readers when link provides context', () => {
       const store = createMockStore({
         favorites: {
           items: [{ id: 1, title: 'Movie 1', release_date: '2024-01-01', vote_average: 8.0 }],
@@ -238,8 +239,13 @@ describe('Header', () => {
 
       renderWithProviders(<Header />, { store });
 
-      const badge = screen.getByLabelText('1 filmes favoritos');
-      expect(badge).toBeInTheDocument();
+      // Badge should be aria-hidden since parent link already has the count
+      const favoritesLink = screen.getByRole('link', { name: /ir para favoritos \(1 filme[s]?\)/i });
+      expect(favoritesLink).toBeInTheDocument();
+
+      // Verify badge is present but hidden from screen readers
+      const badge = screen.getByText('1');
+      expect(badge).toHaveAttribute('aria-hidden', 'true');
     });
   });
 

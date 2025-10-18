@@ -59,7 +59,7 @@ const MovieCardRoot = ({ movie, children }: MovieCardRootProps) => {
     <MovieCardContext.Provider value={contextValue}>
       <Link
         to={ROUTES.MOVIE_DETAILS.replace(':id', String(movie.id))}
-        className="card group relative block overflow-hidden h-full"
+        className="card group relative block overflow-hidden h-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary rounded-lg transition-all"
         aria-label={`Ver detalhes de ${movie.title}`}
       >
         {children}
@@ -119,7 +119,7 @@ const Info = ({ searchQuery }: InfoProps) => {
       <div className="flex items-center justify-between">
         <span className="text-sm text-gray-300">{formatDate(movie.release_date)}</span>
         <div className="flex items-center gap-1">
-          <AiFillStar className="h-4 w-4 text-rating-high" />
+          <AiFillStar className="h-4 w-4 text-rating-high" aria-hidden="true" />
           <span className="text-sm font-medium text-white">{movie.vote_average.toFixed(1)}</span>
         </div>
       </div>
@@ -144,7 +144,7 @@ const FavoriteButton = ({ variant = 'favorite' }: FavoriteButtonProps) => {
   return (
     <button
       onClick={handleFavoriteClick}
-      className={`absolute right-2 top-2 flex h-10 w-10 items-center justify-center rounded-full backdrop-blur-sm transition-all ${
+      className={`absolute right-2 top-2 flex h-10 w-10 items-center justify-center rounded-full backdrop-blur-sm transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${
         showDeleteIcon
           ? 'bg-red-600 hover:bg-red-700 shadow-lg shadow-red-600/25'
           : isMovieFavorite

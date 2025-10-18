@@ -67,6 +67,7 @@ export const Header = () => {
               className={`
                 text-sm font-medium flex items-center gap-2 px-3 py-2 rounded-lg
                 transition-all duration-200 whitespace-nowrap
+                focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary
                 ${
                   isActiveRoute(ROUTES.HOME)
                     ? 'bg-primary text-white'
@@ -84,6 +85,7 @@ export const Header = () => {
               className={`
                 relative flex items-center gap-2 px-3 py-2 rounded-lg
                 text-sm font-medium transition-all duration-200 whitespace-nowrap
+                focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary
                 ${
                   isActiveRoute(ROUTES.FAVORITES)
                     ? 'bg-primary text-white'
@@ -98,7 +100,7 @@ export const Header = () => {
               {favorites.length > 0 && (
                 <span
                   className="flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white shadow-lg shadow-primary/50 animate-pulse"
-                  aria-label={`${favorites.length} filmes favoritos`}
+                  aria-hidden="true"
                 >
                   {favorites.length}
                 </span>
@@ -113,9 +115,15 @@ export const Header = () => {
                   title={viewMode === 'simple' ? 'Visualização Avançada' : 'Visualização Simples'}
                 >
                   {viewMode === 'simple' ? (
-                    <HiViewGrid className="h-5 w-5 text-foreground transition-transform hover:rotate-12" />
+                    <HiViewGrid
+                      className="h-5 w-5 text-foreground transition-transform hover:rotate-12"
+                      aria-hidden="true"
+                    />
                   ) : (
-                    <HiViewList className="h-5 w-5 text-foreground transition-transform hover:rotate-12" />
+                    <HiViewList
+                      className="h-5 w-5 text-foreground transition-transform hover:rotate-12"
+                      aria-hidden="true"
+                    />
                   )}
                 </button>
               )}
