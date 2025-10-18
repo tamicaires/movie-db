@@ -5,10 +5,11 @@ import path from 'path';
 export default defineConfig({
   plugins: [react()],
   test: {
-    globals: true, // Habilita describe, it, expect globalmente (como Jest)
-    environment: 'jsdom', // Simula ambiente de browser
-    setupFiles: ['./src/tests/setup.ts'], // Setup antes dos testes
-    css: true, // Processa CSS nos testes
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: ['./src/tests/setup.ts'],
+    css: true,
+    exclude: ['node_modules/**', 'dist/**', 'e2e/**'],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],

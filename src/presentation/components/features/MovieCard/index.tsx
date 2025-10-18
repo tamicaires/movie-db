@@ -61,6 +61,7 @@ const MovieCardRoot = ({ movie, children }: MovieCardRootProps) => {
         to={ROUTES.MOVIE_DETAILS.replace(':id', String(movie.id))}
         className="card group relative block overflow-hidden h-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary rounded-lg transition-all"
         aria-label={`Ver detalhes de ${movie.title}`}
+        data-testid="movie-card"
       >
         {children}
       </Link>
