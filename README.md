@@ -68,12 +68,16 @@ npm install
 cp .env.example .env
 ```
 
-4. Adicione sua chave da API do TMDB no arquivo `.env`:
+4. Adicione o Read Access Token do TMDB no arquivo `.env`:
 ```env
-VITE_TMDB_API_KEY=sua_chave_aqui
+VITE_TMDB_READ_TOKEN=seu_bearer_token_aqui
 ```
 
-> 📝 Obtenha sua chave em: https://www.themoviedb.org/settings/api
+> 📝 **Importante:** Use o "API Read Access Token" (v4)"
+>
+> Obtenha em: https://www.themoviedb.org/settings/api
+>
+> O Read Access Token é designed para aplicações client-side (SPAs).
 
 ## 🚀 Rodando o projeto
 

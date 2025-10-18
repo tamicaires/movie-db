@@ -13,7 +13,7 @@ export const tmdbApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: API_CONFIG.BASE_URL,
     prepareHeaders: (headers) => {
-      const token = API_CONFIG.API_KEY;
+      const token = API_CONFIG.READ_TOKEN;
       if (token) {
         headers.set('Authorization', `Bearer ${token}`);
       }
