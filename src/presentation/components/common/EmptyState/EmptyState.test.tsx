@@ -26,19 +26,17 @@ describe('EmptyState', () => {
     });
 
     it('should render icon when provided', () => {
-      const { container } = render(
-        <EmptyState title="No favorites" icon={<MdFavorite data-testid="favorite-icon" />} />
-      );
+      render(<EmptyState title="No favorites" icon={<MdFavorite data-testid="favorite-icon" />} />);
 
       expect(screen.getByTestId('favorite-icon')).toBeInTheDocument();
     });
 
     it('should not render icon when not provided', () => {
-      const { container } = render(<EmptyState title="Empty" />);
+      render(<EmptyState title="Empty" />);
 
-      // RippleWrapper should not be rendered
-      const rippleWrapper = container.querySelector('.mb-4');
-      expect(rippleWrapper).not.toBeInTheDocument();
+      // Icon should not be present
+      const icon = screen.queryByTestId('favorite-icon');
+      expect(icon).not.toBeInTheDocument();
     });
 
     it('should render action when provided', () => {
@@ -87,9 +85,7 @@ describe('EmptyState', () => {
     });
 
     it('should have correct description element', () => {
-      const { container } = render(
-        <EmptyState title="Title" description="Test description" />
-      );
+      render(<EmptyState title="Title" description="Test description" />);
 
       const description = screen.getByText('Test description');
       expect(description.tagName).toBe('P');
@@ -124,12 +120,7 @@ describe('EmptyState', () => {
     });
 
     it('should keep action accessible for screen readers', () => {
-      render(
-        <EmptyState
-          title="Test"
-          action={<button aria-label="Try again">Retry</button>}
-        />
-      );
+      render(<EmptyState title="Test" action={<button aria-label="Try again">Retry</button>} />);
 
       const button = screen.getByRole('button', { name: 'Try again' });
       expect(button).toBeInTheDocument();

@@ -13,9 +13,15 @@ export const ThemeToggle = () => {
       title={theme === 'light' ? 'Tema claro ativo' : 'Tema escuro ativo'}
     >
       {theme === 'light' ? (
-        <FiMoon className="h-4 w-4 text-foreground transition-transform hover:rotate-12" aria-hidden="true" />
+        <FiMoon
+          className="h-4 w-4 text-foreground transition-transform hover:rotate-12"
+          aria-hidden="true"
+        />
       ) : (
-        <FiSun className="h-4 w-4 text-foreground transition-transform hover:rotate-12" aria-hidden="true" />
+        <FiSun
+          className="h-4 w-4 text-foreground transition-transform hover:rotate-12"
+          aria-hidden="true"
+        />
       )}
     </button>
   );

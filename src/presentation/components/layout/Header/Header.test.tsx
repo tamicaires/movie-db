@@ -240,7 +240,9 @@ describe('Header', () => {
       renderWithProviders(<Header />, { store });
 
       // Badge should be aria-hidden since parent link already has the count
-      const favoritesLink = screen.getByRole('link', { name: /ir para favoritos \(1 filme[s]?\)/i });
+      const favoritesLink = screen.getByRole('link', {
+        name: /ir para favoritos \(1 filme[s]?\)/i,
+      });
       expect(favoritesLink).toBeInTheDocument();
 
       // Verify badge is present but hidden from screen readers
