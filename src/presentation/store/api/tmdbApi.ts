@@ -21,7 +21,14 @@ export const tmdbApi = createApi({
     },
   }),
 
-  tagTypes: ['PopularMovies', 'MovieDetails', 'SearchResults', 'TopRatedMovies', 'UpcomingMovies', 'NowPlayingMovies'],
+  tagTypes: [
+    'PopularMovies',
+    'MovieDetails',
+    'SearchResults',
+    'TopRatedMovies',
+    'UpcomingMovies',
+    'NowPlayingMovies',
+  ],
 
   endpoints: (builder) => ({
     getPopularMovies: builder.query<PaginatedMoviesResponse, PaginatedParams>({

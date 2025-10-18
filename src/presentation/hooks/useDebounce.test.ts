@@ -17,10 +17,9 @@ describe('useDebounce', () => {
   });
 
   it('should debounce value changes', async () => {
-    const { result, rerender } = renderHook(
-      ({ value, delay }) => useDebounce(value, delay),
-      { initialProps: { value: 'initial', delay: 500 } }
-    );
+    const { result, rerender } = renderHook(({ value, delay }) => useDebounce(value, delay), {
+      initialProps: { value: 'initial', delay: 500 },
+    });
 
     expect(result.current).toBe('initial');
 
@@ -35,10 +34,9 @@ describe('useDebounce', () => {
   });
 
   it('should cancel previous timeout on rapid changes', async () => {
-    const { result, rerender } = renderHook(
-      ({ value }) => useDebounce(value, 500),
-      { initialProps: { value: 'first' } }
-    );
+    const { result, rerender } = renderHook(({ value }) => useDebounce(value, 500), {
+      initialProps: { value: 'first' },
+    });
 
     rerender({ value: 'second' });
     await act(async () => {
@@ -60,10 +58,9 @@ describe('useDebounce', () => {
   });
 
   it('should handle different delay values', async () => {
-    const { result, rerender } = renderHook(
-      ({ value, delay }) => useDebounce(value, delay),
-      { initialProps: { value: 'test', delay: 1000 } }
-    );
+    const { result, rerender } = renderHook(({ value, delay }) => useDebounce(value, delay), {
+      initialProps: { value: 'test', delay: 1000 },
+    });
 
     rerender({ value: 'updated', delay: 1000 });
 
@@ -80,10 +77,9 @@ describe('useDebounce', () => {
   });
 
   it('should handle non-string values', async () => {
-    const { result, rerender } = renderHook(
-      ({ value }) => useDebounce(value, 500),
-      { initialProps: { value: 123 } }
-    );
+    const { result, rerender } = renderHook(({ value }) => useDebounce(value, 500), {
+      initialProps: { value: 123 },
+    });
 
     expect(result.current).toBe(123);
 

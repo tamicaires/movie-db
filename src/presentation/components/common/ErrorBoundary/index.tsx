@@ -70,9 +70,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
               <MdErrorOutline className="h-24 w-24 text-red-600" />
             </RippleWrapper>
 
-            <h1 className="mb-4 text-3xl font-bold text-foreground">
-              Oops! Algo deu errado
-            </h1>
+            <h1 className="mb-4 text-3xl font-bold text-foreground">Oops! Algo deu errado</h1>
 
             <p className="mb-6 text-text-secondary">
               Ocorreu um erro inesperado. Por favor, tente recarregar a página.

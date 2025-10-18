@@ -22,11 +22,17 @@ export const Home = () => {
 
   useSEO({
     title: 'Filmes Populares',
-    description: 'Explore os filmes mais populares do momento, descubra novos lançamentos e aclamados pela crítica.',
+    description:
+      'Explore os filmes mais populares do momento, descubra novos lançamentos e aclamados pela crítica.',
     keywords: 'filmes populares, movies, cinema, TMDB, em alta, lançamentos',
   });
 
-  const { data: popularData, isLoading: popularLoading, error: popularError, refetch: refetchPopular } = useGetPopularMoviesQuery({ page });
+  const {
+    data: popularData,
+    isLoading: popularLoading,
+    error: popularError,
+    refetch: refetchPopular,
+  } = useGetPopularMoviesQuery({ page });
 
   const { data: topRatedData, isLoading: topRatedLoading } = useGetTopRatedMoviesQuery(
     { page: 1 },

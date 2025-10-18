@@ -70,7 +70,9 @@ export const SearchBar = ({
   return (
     <form onSubmit={handleSubmit} className="w-full">
       <div className="relative">
-        <div className={`pointer-events-none absolute inset-y-0 left-0 flex items-center ${iconPadding}`}>
+        <div
+          className={`pointer-events-none absolute inset-y-0 left-0 flex items-center ${iconPadding}`}
+        >
           <FiSearch className={`${iconSize} text-text-secondary`} />
         </div>
         <input

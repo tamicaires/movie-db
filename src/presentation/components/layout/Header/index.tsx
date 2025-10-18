@@ -32,9 +32,16 @@ export const Header = () => {
       <Container>
         <div className="flex h-16 items-center justify-between gap-4">
           <div className="flex items-center gap-4 lg:gap-8">
-            <Link to={ROUTES.HOME} className="flex items-center gap-2 flex-shrink-0 group" aria-label="Ir para página inicial">
+            <Link
+              to={ROUTES.HOME}
+              className="flex items-center gap-2 flex-shrink-0 group"
+              aria-label="Ir para página inicial"
+            >
               <div className="relative">
-                <MdMovieFilter className="h-7 w-7 text-yellow-500 transition-transform group-hover:scale-110 group-hover:rotate-12" aria-hidden="true" />
+                <MdMovieFilter
+                  className="h-7 w-7 text-yellow-500 transition-transform group-hover:scale-110 group-hover:rotate-12"
+                  aria-hidden="true"
+                />
                 <div className="absolute inset-0 bg-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
               <span className="text-xl hidden sm:inline">
@@ -89,7 +96,10 @@ export const Header = () => {
               <MdFavorite className="text-base" aria-hidden="true" />
               Favoritos
               {favorites.length > 0 && (
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white shadow-lg shadow-primary/50 animate-pulse" aria-label={`${favorites.length} filmes favoritos`}>
+                <span
+                  className="flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white shadow-lg shadow-primary/50 animate-pulse"
+                  aria-label={`${favorites.length} filmes favoritos`}
+                >
                   {favorites.length}
                 </span>
               )}

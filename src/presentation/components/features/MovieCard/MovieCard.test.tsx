@@ -114,7 +114,9 @@ describe('MovieCard', () => {
 
       expect(screen.getByText('Test Movie')).toBeInTheDocument();
       expect(screen.getByAltText('Poster do filme Test Movie')).toBeInTheDocument();
-      expect(screen.getByRole('button', { name: /adicionar test movie aos favoritos/i })).toBeInTheDocument();
+      expect(
+        screen.getByRole('button', { name: /adicionar test movie aos favoritos/i })
+      ).toBeInTheDocument();
     });
 
     it('should allow flexible composition without Gradient', () => {
@@ -137,7 +139,9 @@ describe('MovieCard', () => {
         </MovieCard>
       );
 
-      const favoriteBtn = screen.getByRole('button', { name: /adicionar test movie aos favoritos/i });
+      const favoriteBtn = screen.getByRole('button', {
+        name: /adicionar test movie aos favoritos/i,
+      });
       expect(favoriteBtn).toBeInTheDocument();
     });
 
@@ -152,7 +156,9 @@ describe('MovieCard', () => {
         store
       );
 
-      const favoriteBtn = screen.getByRole('button', { name: /adicionar test movie aos favoritos/i });
+      const favoriteBtn = screen.getByRole('button', {
+        name: /adicionar test movie aos favoritos/i,
+      });
       await user.click(favoriteBtn);
 
       const state = store.getState();
@@ -178,7 +184,9 @@ describe('MovieCard', () => {
         </MovieCard>
       );
 
-      const favoriteBtn = screen.getByRole('button', { name: /adicionar test movie aos favoritos/i });
+      const favoriteBtn = screen.getByRole('button', {
+        name: /adicionar test movie aos favoritos/i,
+      });
       expect(favoriteBtn).toHaveAttribute('aria-pressed');
     });
   });

@@ -18,7 +18,7 @@ export const EmptyState = ({ title, description, icon, action }: EmptyStateProps
             size: 'xl',
             color: 'primary',
             intensity: 'light',
-            rings: 3
+            rings: 3,
           }}
         >
           <div className="text-text-secondary">{icon}</div>

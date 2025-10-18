@@ -17,9 +17,7 @@ export const Search = () => {
 
   useSEO({
     title: query ? `Busca: ${query}` : 'Buscar Filmes',
-    description: query
-      ? `Resultados da busca por "${query}"`
-      : 'Busque por seus filmes favoritos',
+    description: query ? `Resultados da busca por "${query}"` : 'Busque por seus filmes favoritos',
     keywords: `busca, pesquisa, ${query || 'filmes'}`,
   });
 
