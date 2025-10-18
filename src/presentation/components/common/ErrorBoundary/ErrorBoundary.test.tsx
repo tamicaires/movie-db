@@ -1,6 +1,5 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeAll, afterAll } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { ErrorBoundary } from './index';
 
 // Component that throws an error
@@ -65,9 +64,7 @@ describe('ErrorBoundary', () => {
     expect(onError).toHaveBeenCalled();
   });
 
-  it('should have reset button that clears error state', async () => {
-    const user = userEvent.setup();
-
+  it('should have reset button that clears error state', () => {
     render(
       <ErrorBoundary>
         <ThrowError shouldThrow={true} />

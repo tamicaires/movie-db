@@ -1,4 +1,5 @@
-import { Component, ErrorInfo, ReactNode } from 'react';
+import { Component } from 'react';
+import type { ErrorInfo, ReactNode } from 'react';
 import { MdErrorOutline, MdRefresh } from 'react-icons/md';
 import { RippleWrapper } from '../RippleEffect';
 
