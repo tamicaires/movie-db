@@ -2,6 +2,10 @@
 
 Aplicação web moderna para explorar filmes populares, buscar títulos e gerenciar favoritos utilizando a API do TMDB (The Movie Database).
 
+## 🌐 Demo ao Vivo
+
+🔗 **[https://movie-db-xi-six.vercel.app/](https://movie-db-xi-six.vercel.app/)**
+
 ## 🚀 Tecnologias
 
 - **React 18** - Biblioteca UI
