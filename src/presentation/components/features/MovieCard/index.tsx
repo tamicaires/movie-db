@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react';
 import type { ReactNode, MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { MdLocalMovies, MdFavoriteBorder, MdDelete } from 'react-icons/md';
+import { MdLocalMovies, MdFavoriteBorder, MdFavorite, MdDelete } from 'react-icons/md';
 import { AiFillStar } from 'react-icons/ai';
 import type { Movie } from '@/shared/types';
 import { getPosterUrl } from '@/shared/utils/imageUrl';
@@ -145,7 +145,7 @@ const FavoriteButton = ({ variant = 'favorite' }: FavoriteButtonProps) => {
   return (
     <button
       onClick={handleFavoriteClick}
-      className={`absolute right-2 top-2 flex h-10 w-10 items-center justify-center rounded-full backdrop-blur-sm transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${
+      className={`absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full backdrop-blur-sm transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${
         showDeleteIcon
           ? 'bg-red-600 hover:bg-red-700 shadow-lg shadow-red-600/25'
           : isMovieFavorite
@@ -169,11 +169,11 @@ const FavoriteButton = ({ variant = 'favorite' }: FavoriteButtonProps) => {
       }
     >
       {showDeleteIcon ? (
-        <MdDelete className="h-6 w-6 text-white" aria-hidden="true" />
+        <MdDelete className="h-4 w-4 text-white" aria-hidden="true" />
       ) : isMovieFavorite ? (
-        <MdFavoriteBorder className="h-6 w-6 text-white" aria-hidden="true" />
+        <MdFavorite className="h-4 w-4 text-red-500" aria-hidden="true" />
       ) : (
-        <MdFavoriteBorder className="h-6 w-6 text-white" aria-hidden="true" />
+        <MdFavoriteBorder className="h-4 w-4 text-white" aria-hidden="true" />
       )}
     </button>
   );
