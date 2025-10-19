@@ -39,7 +39,10 @@ export const tmdbApi = createApi({
       serializeQueryArgs: ({ endpointName }) => {
         return endpointName;
       },
-      merge: (currentCache, newItems) => {
+      merge: (currentCache, newItems, { arg }) => {
+        if (arg.page === 1) {
+          return newItems;
+        }
         currentCache.results.push(...newItems.results);
         currentCache.page = newItems.page;
         currentCache.total_pages = newItems.total_pages;
@@ -65,14 +68,17 @@ export const tmdbApi = createApi({
       serializeQueryArgs: ({ queryArgs }) => {
         return queryArgs.query;
       },
-      merge: (currentCache, newItems) => {
+      merge: (currentCache, newItems, { arg }) => {
+        if (arg.page === 1) {
+          return newItems;
+        }
         currentCache.results.push(...newItems.results);
         currentCache.page = newItems.page;
         currentCache.total_pages = newItems.total_pages;
         currentCache.total_results = newItems.total_results;
       },
       forceRefetch({ currentArg, previousArg }) {
-        return currentArg?.page !== previousArg?.page;
+        return currentArg?.page !== previousArg?.page || currentArg?.query !== previousArg?.query;
       },
       providesTags: (result, _error, { query }) =>
         result

@@ -6,8 +6,7 @@ import { Container } from '../Container';
 import { SearchBar } from '@/presentation/components/features';
 import { ThemeToggle } from '@/presentation/components/common/ThemeToggle';
 import { ROUTES } from '@/shared/constants';
-import { useFavorites } from '@/presentation/hooks/useFavorites';
-import { useViewMode } from '@/presentation/hooks';
+import { useFavorites, useViewMode, useDebouncedSearch } from '@/presentation/hooks';
 import { GoHomeFill } from 'react-icons/go';
 
 export const Header = () => {
@@ -16,6 +15,8 @@ export const Header = () => {
   const location = useLocation();
   const [searchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState('');
+
+  useDebouncedSearch(searchQuery);
 
   useEffect(() => {
     if (location.pathname === ROUTES.SEARCH) {

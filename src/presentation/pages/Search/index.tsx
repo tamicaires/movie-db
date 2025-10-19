@@ -23,7 +23,7 @@ export const Search = () => {
 
   const { data, isLoading, error, refetch } = useSearchMoviesQuery(
     { query, page },
-    { skip: !query }
+    { skip: !query || query.length < 3 }
   );
 
   useEffect(() => {
@@ -39,6 +39,8 @@ export const Search = () => {
     }
   };
 
+  const isQueryTooShort = query.length > 0 && query.length < 3;
+
   return (
     <Container className="py-8">
       <h1 className="text-3xl font-bold text-foreground">
@@ -50,6 +52,12 @@ export const Search = () => {
           icon={<MdSearchOff className="h-20 w-20" />}
           title="Faça uma busca"
           description="Use o campo de busca no topo para encontrar filmes"
+        />
+      ) : isQueryTooShort ? (
+        <EmptyState
+          icon={<MdSearchOff className="h-16 w-16" />}
+          title="Digite pelo menos 3 caracteres"
+          description="Continue digitando para ver os resultados da busca"
         />
       ) : (
         <>
