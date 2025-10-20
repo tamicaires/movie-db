@@ -18,9 +18,44 @@
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Critical CSS - Prevent FOUC -->
+    <style>
+      body {
+        margin: 0;
+        background-color: #0D1117;
+        color: #F0F6FC;
+        font-family: Inter, system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      #root {
+        min-height: 100vh;
+      }
+      /* Loading state */
+      .loading-root {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- Fallback loading for JS disabled or slow connection -->
+      <div class="loading-root">
+        <div style="text-align: center;">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#F0F6FC" stroke-width="2">
+            <circle cx="12" cy="12" r="10" opacity="0.25"/>
+            <path d="M12 2 A10 10 0 0 1 12 22" opacity="0.75">
+              <animateTransform attributeName="transform" type="rotate" from="0 12 12" to="360 12 12" dur="1s" repeatCount="indefinite"/>
+            </path>
+          </svg>
+          <p style="margin-top: 16px; font-size: 14px; opacity: 0.7;">Carregando...</p>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
