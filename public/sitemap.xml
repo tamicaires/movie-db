@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://movie-mb.vercel.app/</loc>
+    <loc>https://moviedb.facter.com.br/</loc>
     <lastmod>2025-10-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://movie-mb.vercel.app/favorites</loc>
+    <loc>https://moviedb.facter.com.br/favorites</loc>
     <lastmod>2025-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://movie-mb.vercel.app/search</loc>
+    <loc>https://moviedb.facter.com.br/search</loc>
     <lastmod>2025-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>

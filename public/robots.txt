@@ -3,4 +3,4 @@ User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://movie-mb.vercel.app/sitemap.xml
+Sitemap: https://moviedb.facter.com.br/sitemap.xml

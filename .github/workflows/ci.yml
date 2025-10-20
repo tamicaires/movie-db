@@ -74,7 +74,7 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          VITE_APP_URL: https://movie-mb.vercel.app
+          VITE_APP_URL: https://moviedb.facter.com.br
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4

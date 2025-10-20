@@ -6,7 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // URL base da aplicação (pode ser sobrescrita por variável de ambiente)
-const BASE_URL = process.env.VITE_APP_URL || 'https://movie-mb.vercel.app';
+const BASE_URL = process.env.VITE_APP_URL || 'https://moviedb.facter.com.br';
 const currentDate = new Date().toISOString().split('T')[0];
 
 // Gera robots.txt

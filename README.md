@@ -4,7 +4,7 @@ Aplicação web moderna para explorar filmes populares, buscar títulos e gerenc
 
 ## 🌐 Demo ao Vivo
 
-🔗 **[https://movie-db-xi-six.vercel.app/](https://movie-db-xi-six.vercel.app/)**
+🔗 **[https://moviedb.facter.com.br/](https://moviedb.facter.com.br/)**
 
 ## 🚀 Tecnologias
 
@@ -16,17 +16,20 @@ Aplicação web moderna para explorar filmes populares, buscar títulos e gerenc
 - **Tailwind CSS** - Estilização
 - **Vite** - Build tool
 - **Vitest** - Testes unitários
+- **Playwright** - Testes E2E
 - **React Icons** - Biblioteca de ícones
 
 ## 📋 Funcionalidades
 
 - ✅ Listagem de filmes populares com paginação
-- ✅ Busca de filmes com debounce
+- ✅ Busca em tempo real com debounce (500ms)
 - ✅ Detalhes completos do filme
 - ✅ Sistema de favoritos com persistência (localStorage)
 - ✅ Ordenação de favoritos (título, data, avaliação)
 - ✅ Tema dark/light mode com transições suaves
-- ✅ Design responsivo
+- ✅ Menu mobile responsivo com hamburger
+- ✅ SEO otimizado (meta tags, sitemap, Open Graph)
+- ✅ Design responsivo mobile-first
 - ✅ Clean Architecture
 - ✅ Type-safe com TypeScript strict mode
 
@@ -58,8 +61,8 @@ src/
 
 1. Clone o repositório:
 ```bash
-git clone <repository-url>
-cd movie_mb
+git clone https://github.com/tamicaires/movie-db.git
+cd movie-db
 ```
 
 2. Instale as dependências:
@@ -112,15 +115,28 @@ npm run pre-commit
 
 ## 📝 Scripts disponíveis
 
+### Desenvolvimento
 - `npm run dev` - Inicia servidor de desenvolvimento
 - `npm run build` - Cria build de produção
 - `npm run preview` - Preview da build de produção
+
+### Testes
+- `npm run test` - Executa testes unitários (watch mode)
+- `npm run test:run` - Executa testes unitários (single run)
+- `npm run test:ui` - Interface do Vitest
+- `npm run test:coverage` - Relatório de cobertura
+- `npm run test:e2e` - Testes E2E com Playwright
+- `npm run test:e2e:ui` - Interface do Playwright
+- `npm run test:e2e:headed` - E2E com navegador visível
+- `npm run test:e2e:debug` - Debug de testes E2E
+
+### Qualidade de Código
 - `npm run lint` - Executa ESLint
+- `npm run lint:fix` - Auto-fix do ESLint
 - `npm run format` - Formata código com Prettier
 - `npm run format:check` - Verifica formatação
 - `npm run type-check` - Verifica tipos TypeScript
-- `npm run test` - Executa testes
-- `npm run pre-commit` - Validação completa antes de commit
+- `npm run pre-commit` - Validação completa (type-check + lint + format + tests)
 
 ## 🎨 Decisões de Design
 
@@ -142,10 +158,12 @@ npm run pre-commit
 - Uso de barrel exports (index.ts)
 
 ### Performance
-- Debounce na busca (500ms)
+- Debounce na busca em tempo real (500ms)
 - Memoização com `createSelector` (Reselect)
 - Lazy loading de imagens
-- Paginação infinita
+- Paginação com botão "Load More"
+- Cache automático via RTK Query
+- Request deduplication
 
 ## 📦 Estrutura de Commits
 
