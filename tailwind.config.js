@@ -7,6 +7,20 @@ export default {
   darkMode: 'class',
   theme: {
     extend: {
+      keyframes: {
+        'fade-in': {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        'slide-in-from-right': {
+          '0%': { transform: 'translateX(100%)' },
+          '100%': { transform: 'translateX(0)' },
+        },
+      },
+      animation: {
+        'fade-in': 'fade-in 0.2s ease-out',
+        'slide-in-from-right': 'slide-in-from-right 0.3s ease-out',
+      },
       colors: {
         background: {
           DEFAULT: 'hsl(var(--background))',

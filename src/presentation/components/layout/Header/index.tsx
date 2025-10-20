@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams, useLocation } from 'react-router-dom';
 import { MdFavorite, MdMovieFilter } from 'react-icons/md';
-import { HiViewGrid, HiViewList } from 'react-icons/hi';
+import { HiViewGrid, HiViewList, HiMenu } from 'react-icons/hi';
 import { Container } from '../Container';
+import { MobileMenu } from '../MobileMenu';
 import { SearchBar } from '@/presentation/components/features';
 import { ThemeToggle } from '@/presentation/components/common/ThemeToggle';
 import { ROUTES } from '@/shared/constants';
@@ -15,6 +16,7 @@ export const Header = () => {
   const location = useLocation();
   const [searchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState('');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useDebouncedSearch(searchQuery);
 
@@ -29,43 +31,54 @@ export const Header = () => {
   const isHomePage = location.pathname === ROUTES.HOME;
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/80 shadow-lg shadow-black/5">
-      <Container>
-        <div className="flex h-16 items-center justify-between gap-4">
-          <div className="flex items-center gap-4 lg:gap-8">
-            <Link
-              to={ROUTES.HOME}
-              className="flex items-center gap-2 flex-shrink-0 group"
-              aria-label="Ir para página inicial"
-            >
-              <div className="relative">
-                <MdMovieFilter
-                  className="h-7 w-7 text-yellow-500 transition-transform group-hover:scale-110 group-hover:rotate-12"
-                  aria-hidden="true"
-                />
-                <div className="absolute inset-0 bg-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-              </div>
-              <span className="text-xl hidden sm:inline">
-                <span className="font-extrabold">Movie</span>
-                <span className="font-light">DB</span>
-              </span>
-            </Link>
-          </div>
-
-          <div className="flex items-center gap-3 flex-1 max-w-md">
-            <div className="flex-1">
-              <SearchBar
-                value={searchQuery}
-                onChange={setSearchQuery}
-                placeholder="Buscar filmes..."
-                compact
-              />
+    <>
+      <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/80 shadow-lg shadow-black/5">
+        <Container>
+          <div className="flex h-16 items-center justify-between gap-4">
+            <div className="flex items-center gap-4 lg:gap-8">
+              <Link
+                to={ROUTES.HOME}
+                className="flex items-center gap-2 flex-shrink-0 group"
+                aria-label="Ir para página inicial"
+              >
+                <div className="relative">
+                  <MdMovieFilter
+                    className="h-7 w-7 text-yellow-500 transition-transform group-hover:scale-110 group-hover:rotate-12"
+                    aria-hidden="true"
+                  />
+                  <div className="absolute inset-0 bg-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
+                <span className="text-xl hidden sm:inline">
+                  <span className="font-extrabold">Movie</span>
+                  <span className="font-light">DB</span>
+                </span>
+              </Link>
             </div>
-          </div>
-          <nav className="hidden md:flex items-center gap-2 lg:gap-3">
-            <Link
-              to={ROUTES.HOME}
-              className={`
+
+            <div className="flex items-center gap-3 flex-1 max-w-md">
+              <div className="flex-1">
+                <SearchBar
+                  value={searchQuery}
+                  onChange={setSearchQuery}
+                  placeholder="Buscar filmes..."
+                  compact
+                />
+              </div>
+            </div>
+
+            <button
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border/50 bg-surface/30 hover:bg-surface hover:border-border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary/50"
+              aria-label="Abrir menu"
+              aria-expanded={isMobileMenuOpen}
+            >
+              <HiMenu className="h-6 w-6 text-foreground" aria-hidden="true" />
+            </button>
+
+            <nav className="hidden md:flex items-center gap-2 lg:gap-3">
+              <Link
+                to={ROUTES.HOME}
+                className={`
                 text-sm font-medium flex items-center gap-2 px-3 py-2 rounded-lg
                 transition-all duration-200 whitespace-nowrap
                 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary
@@ -75,15 +88,15 @@ export const Header = () => {
                     : 'text-foreground/70 hover:text-foreground hover:bg-surface/50'
                 }
               `}
-              aria-label="Ir para Home"
-              aria-current={isActiveRoute(ROUTES.HOME) ? 'page' : undefined}
-            >
-              <GoHomeFill className="text-base" aria-hidden="true" />
-              Home
-            </Link>
-            <Link
-              to={ROUTES.FAVORITES}
-              className={`
+                aria-label="Ir para Home"
+                aria-current={isActiveRoute(ROUTES.HOME) ? 'page' : undefined}
+              >
+                <GoHomeFill className="text-base" aria-hidden="true" />
+                Home
+              </Link>
+              <Link
+                to={ROUTES.FAVORITES}
+                className={`
                 relative flex items-center gap-2 px-3 py-2 rounded-lg
                 text-sm font-medium transition-all duration-200 whitespace-nowrap
                 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary
@@ -93,46 +106,57 @@ export const Header = () => {
                     : 'text-foreground/70 hover:text-foreground hover:bg-surface/50'
                 }
               `}
-              aria-label={`Ir para Favoritos${favorites.length > 0 ? ` (${favorites.length} filmes)` : ''}`}
-              aria-current={isActiveRoute(ROUTES.FAVORITES) ? 'page' : undefined}
-            >
-              <MdFavorite className="text-base" aria-hidden="true" />
-              Favoritos
-              {favorites.length > 0 && (
-                <span
-                  className="flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white shadow-lg shadow-primary/50 animate-pulse"
-                  aria-hidden="true"
-                >
-                  {favorites.length}
-                </span>
-              )}
-            </Link>
-            <div className="ml-2 pl-2 border-l border-border/50 flex items-center gap-2">
-              {isHomePage && (
-                <button
-                  onClick={toggle}
-                  className="relative inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border/50 bg-surface/30 transition-all duration-200 hover:bg-surface hover:border-border hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background active:scale-95"
-                  aria-label="Toggle view mode"
-                  title={viewMode === 'simple' ? 'Visualização Avançada' : 'Visualização Simples'}
-                >
-                  {viewMode === 'simple' ? (
-                    <HiViewGrid
-                      className="h-5 w-5 text-foreground transition-transform hover:rotate-12"
-                      aria-hidden="true"
-                    />
-                  ) : (
-                    <HiViewList
-                      className="h-5 w-5 text-foreground transition-transform hover:rotate-12"
-                      aria-hidden="true"
-                    />
-                  )}
-                </button>
-              )}
-              <ThemeToggle />
-            </div>
-          </nav>
-        </div>
-      </Container>
-    </header>
+                aria-label={`Ir para Favoritos${favorites.length > 0 ? ` (${favorites.length} filmes)` : ''}`}
+                aria-current={isActiveRoute(ROUTES.FAVORITES) ? 'page' : undefined}
+              >
+                <MdFavorite className="text-base" aria-hidden="true" />
+                Favoritos
+                {favorites.length > 0 && (
+                  <span
+                    className="flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white shadow-lg shadow-primary/50 animate-pulse"
+                    aria-hidden="true"
+                  >
+                    {favorites.length}
+                  </span>
+                )}
+              </Link>
+              <div className="ml-2 pl-2 border-l border-border/50 flex items-center gap-2">
+                {isHomePage && (
+                  <button
+                    onClick={toggle}
+                    className="relative inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border/50 bg-surface/30 transition-all duration-200 hover:bg-surface hover:border-border hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background active:scale-95"
+                    aria-label="Toggle view mode"
+                    title={viewMode === 'simple' ? 'Visualização Avançada' : 'Visualização Simples'}
+                  >
+                    {viewMode === 'simple' ? (
+                      <HiViewGrid
+                        className="h-5 w-5 text-foreground transition-transform hover:rotate-12"
+                        aria-hidden="true"
+                      />
+                    ) : (
+                      <HiViewList
+                        className="h-5 w-5 text-foreground transition-transform hover:rotate-12"
+                        aria-hidden="true"
+                      />
+                    )}
+                  </button>
+                )}
+                <ThemeToggle />
+              </div>
+            </nav>
+          </div>
+        </Container>
+      </header>
+
+      <MobileMenu
+        isOpen={isMobileMenuOpen}
+        onClose={() => setIsMobileMenuOpen(false)}
+        isActiveRoute={isActiveRoute}
+        favoritesCount={favorites.length}
+        isHomePage={isHomePage}
+        viewMode={viewMode}
+        onToggleViewMode={toggle}
+      />
+    </>
   );
 };
