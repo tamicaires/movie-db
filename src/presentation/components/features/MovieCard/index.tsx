@@ -113,18 +113,25 @@ const Info = ({ searchQuery }: InfoProps) => {
   const { movie } = useMovieCardContext();
 
   return (
-    <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-2 transition-transform group-hover:translate-y-0">
-      <h3 className="mb-1 text-lg font-semibold text-white line-clamp-2">
-        <HighlightText text={movie.title} highlight={searchQuery} />
-      </h3>
-      <div className="flex items-center justify-between">
-        <span className="text-sm text-gray-300">{formatDate(movie.release_date)}</span>
-        <div className="flex items-center gap-1">
-          <AiFillStar className="h-4 w-4 text-rating-high" aria-hidden="true" />
-          <span className="text-sm font-medium text-white">{movie.vote_average.toFixed(1)}</span>
+    <>
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black via-black/85 to-transparent pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-2 transition-transform group-hover:translate-y-0">
+        <h3 className="mb-1 text-lg font-semibold text-white line-clamp-2 drop-shadow-lg">
+          <HighlightText text={movie.title} highlight={searchQuery} />
+        </h3>
+        <div className="flex items-center justify-between">
+          <span className="text-sm text-gray-300 drop-shadow-md">
+            {formatDate(movie.release_date)}
+          </span>
+          <div className="flex items-center gap-1">
+            <AiFillStar className="h-4 w-4 text-rating-high drop-shadow-md" aria-hidden="true" />
+            <span className="text-sm font-medium text-white drop-shadow-md">
+              {movie.vote_average.toFixed(1)}
+            </span>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
